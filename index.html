@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es" class="sin-js">
+<head>
+  <!-- ============================================================
+       NATI & LEAN — Invitación de Boda
+       27 · 11 · 2026 — Finca La Josefina, Berisso
+       ============================================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- ——— SEO ——— -->
+  <title>Nati &amp; Lean — Nos Casamos · 27 de Noviembre</title>
+  <meta name="description" content="Con inmensa alegría te invitamos a celebrar nuestra boda. 27 de noviembre · Finca La Josefina, Berisso. Confirmá tu asistencia.">
+  <meta name="author" content="Nati & Lean">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#4A0F1E">
+  <link rel="canonical" href="https://natiylean.com/">
+
+  <!-- ——— OpenGraph ——— -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nati & Lean — ¡Nos Casamos!">
+  <meta property="og:description" content="27 de noviembre · Finca La Josefina, Berisso. Te esperamos para celebrar juntos.">
+  <meta property="og:image" content="assets/images/og-cover.svg">
+  <meta property="og:locale" content="es_AR">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- ——— Favicon & Manifest ——— -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/icons/favicon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- ——— Tipografías auto-hospedadas (rendimiento y fiabilidad) ——— -->
+  <link rel="preload" href="assets/fonts/cormorant-garamond-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/poppins-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+
+  <!-- ——— Estilos ——— -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ——— Datos estructurados (Schema.org) ——— -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Boda de Nati & Lean",
+    "startDate": "2026-11-27T18:30:00-03:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Finca La Josefina",
+      "address": { "@type": "PostalAddress", "addressLocality": "Berisso", "addressCountry": "AR" }
+    }
+  }
+  </script>
+</head>
+
+<body data-estado="cerrada">
+
+  <!-- ============================================================
+       PRELOADER — monograma que respira mientras carga la página
+       ============================================================ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__monograma">
+      <svg class="preloader__anillo" viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="56" stroke="currentColor" stroke-width="0.75"/>
+      </svg>
+      <span class="preloader__letras">N<i>&amp;</i>L</span>
+    </div>
+    <span class="preloader__linea"></span>
+  </div>
+
+  <!-- ——— Barra de progreso de scroll ——— -->
+  <div class="progreso" aria-hidden="true"><span class="progreso__barra" id="progresoBarra"></span></div>
+
+  <!-- ——— Cursor personalizado (solo desktop con puntero fino) ——— -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-halo" id="cursorHalo" aria-hidden="true"></div>
+
+  <!-- ——— Reproductor de música flotante ——— -->
+  <button class="musica" id="btnMusica" aria-label="Reproducir o pausar la música" data-cursor="hover">
+    <span class="musica__ondas" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <svg class="musica__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M9 18V6l10-2v11.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="6.5" cy="18" r="2.5" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="16.5" cy="15.5" r="2.5" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+  </button>
+  <audio id="audioBoda" src="assets/music/cancion.mp3" loop preload="none"></audio>
+
+  <!-- ——— Botón volver arriba ——— -->
+  <button class="arriba" id="btnArriba" aria-label="Volver arriba" data-cursor="hover">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 19V5m0 0-6 6m6-6 6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <main id="contenido">
+
+    <!-- ============================================================
+         HERO — portada cinematográfica a pantalla completa
+         ============================================================ -->
+    <header class="hero" id="inicio">
+      <!-- Fondo: composición floral + gradiente bordó con parallax -->
+      <div class="hero__fondo" data-parallax="0.25">
+        <img src="assets/images/hero.svg" alt="" class="hero__imagen" fetchpriority="high">
+      </div>
+      <div class="hero__velo" id="heroVelo"></div>
+      <div class="hero__grano" aria-hidden="true"></div>
+
+      <div class="hero__contenido">
+        <svg class="hero__ornamento hero__ornamento--sup" viewBox="0 0 220 40" fill="none" aria-hidden="true">
+          <path class="trazo" d="M10 24 C50 6, 90 6, 110 22 C130 6, 170 6, 210 24" stroke="currentColor" stroke-width="0.9"/>
+          <circle class="trazo" cx="110" cy="24" r="2.4" stroke="currentColor" stroke-width="0.9"/>
+        </svg>
+
+        <p class="hero__iniciales" id="heroIniciales" aria-hidden="true">N <span>&amp;</span> L</p>
+        <h1 class="hero__nombres" id="heroNombres">Nati <span class="amp">&amp;</span> Lean</h1>
+
+        <p class="hero__promesa" id="heroPromesa">
+          Descubrimos que el amor no es solo un sentimiento, sino la decisión diaria de
+          elegirnos, cuidarnos y hacernos felices. Por eso, con Dios guiando nuestro
+          camino, elegimos caminar juntos para siempre.
+        </p>
+
+        <div class="hero__fecha" id="heroFecha">
+          <span class="hero__nos-casamos">Nos casamos</span>
+          <span class="hero__dia">27 de noviembre</span>
+        </div>
+
+        <button class="boton boton--dorado hero__abrir" id="btnAbrir" data-cursor="hover">
+          <span class="boton__texto">Abrir Invitación</span>
+          <span class="boton__brillo" aria-hidden="true"></span>
+        </button>
+
+        <svg class="hero__ornamento hero__ornamento--inf" viewBox="0 0 220 40" fill="none" aria-hidden="true">
+          <path class="trazo" d="M10 16 C50 34, 90 34, 110 18 C130 34, 170 34, 210 16" stroke="currentColor" stroke-width="0.9"/>
+        </svg>
+      </div>
+
+      <!-- Indicador de scroll -->
+      <div class="hero__scroll" id="heroScroll" aria-hidden="true">
+        <span class="hero__scroll-texto">deslizá</span>
+        <span class="hero__scroll-linea"></span>
+      </div>
+    </header>
+
+    <!-- ============================================================
+         CUENTA REGRESIVA
+         ============================================================ -->
+    <section class="cuenta seccion" id="cuenta-regresiva" aria-label="Cuenta regresiva">
+      <div class="contenedor">
+        <p class="etiqueta" data-anim="fade-up">Falta cada vez menos</p>
+        <h2 class="titulo" data-anim="split">Contando los días</h2>
+
+        <div class="cuenta__reloj" data-anim="fade-up" data-anim-delay="0.2" role="timer" aria-live="polite">
+          <div class="cuenta__bloque"><span class="cuenta__numero" id="cdDias">000</span><span class="cuenta__unidad">días</span></div>
+          <span class="cuenta__sep" aria-hidden="true"></span>
+          <div class="cuenta__bloque"><span class="cuenta__numero" id="cdHoras">00</span><span class="cuenta__unidad">horas</span></div>
+          <span class="cuenta__sep" aria-hidden="true"></span>
+          <div class="cuenta__bloque"><span class="cuenta__numero" id="cdMin">00</span><span class="cuenta__unidad">minutos</span></div>
+          <span class="cuenta__sep" aria-hidden="true"></span>
+          <div class="cuenta__bloque"><span class="cuenta__numero" id="cdSeg">00</span><span class="cuenta__unidad">segundos</span></div>
+        </div>
+
+        <p class="cuenta__hasta" data-anim="fade-up" data-anim-delay="0.35">para el 27 de noviembre</p>
+      </div>
+      <span class="cuenta__marca" aria-hidden="true" data-parallax="0.12">27.11</span>
+    </section>
+
+    <!-- ============================================================
+         INVITACIÓN
+         ============================================================ -->
+    <section class="invitacion seccion" id="invitacion">
+      <div class="contenedor contenedor--angosto">
+        <svg class="florituras" viewBox="0 0 160 60" fill="none" aria-hidden="true" data-anim="dibujo">
+          <path class="trazo" d="M80 50 C80 30, 60 26, 50 14 M80 50 C80 30, 100 26, 110 14 M80 50 V10" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+          <circle class="trazo" cx="50" cy="12" r="3" stroke="currentColor" stroke-width="0.9"/>
+          <circle class="trazo" cx="110" cy="12" r="3" stroke="currentColor" stroke-width="0.9"/>
+          <circle class="trazo" cx="80" cy="8" r="3.6" stroke="currentColor" stroke-width="0.9"/>
+        </svg>
+
+        <h2 class="titulo titulo--grande" data-anim="split">Con inmensa alegría</h2>
+        <p class="parrafo" data-anim="fade-up">
+          Queremos compartir con vos uno de los días más importantes de nuestras vidas.
+        </p>
+        <p class="parrafo" data-anim="fade-up" data-anim-delay="0.15">
+          Agradecidos con Dios por guiarnos hasta este momento, te invitamos a acompañarnos
+          mientras comenzamos una nueva historia como familia.
+        </p>
+        <p class="parrafo parrafo--acento" data-anim="fade-up" data-anim-delay="0.3">
+          Será un honor celebrar junto a vos.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CEREMONIA — tarjeta con glassmorphism sutil
+         ============================================================ -->
+    <section class="ceremonia seccion seccion--oscura" id="ceremonia">
+      <div class="ceremonia__fondo" data-parallax="0.18" aria-hidden="true"></div>
+      <div class="contenedor">
+        <p class="etiqueta etiqueta--clara" data-anim="fade-up">El gran día</p>
+        <h2 class="titulo titulo--claro" data-anim="split">Ceremonia &amp; Celebración</h2>
+
+        <article class="tarjeta-vidrio ceremonia__tarjeta" data-anim="zoom">
+          <svg class="tarjeta-vidrio__sello" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+            <circle cx="30" cy="30" r="28" stroke="currentColor" stroke-width="0.8"/>
+            <text x="30" y="37" text-anchor="middle" class="tarjeta-vidrio__sello-texto">N&amp;L</text>
+          </svg>
+
+          <div class="ceremonia__dato">
+            <svg class="ceremonia__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11Z" stroke="currentColor" stroke-width="1.1"/>
+              <circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.1"/>
+            </svg>
+            <h3 class="ceremonia__lugar">Finca La Josefina</h3>
+            <p class="ceremonia__ciudad">Berisso</p>
+          </div>
+
+          <span class="ceremonia__divisor" aria-hidden="true"></span>
+
+          <div class="ceremonia__dato">
+            <svg class="ceremonia__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.1"/>
+              <path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            </svg>
+            <h3 class="ceremonia__hora">18:30 hs puntuales</h3>
+            <p class="ceremonia__ciudad">27 de noviembre</p>
+          </div>
+
+          <a class="boton boton--contorno" href="https://www.google.com/maps/search/?api=1&amp;query=Finca+La+Josefina%2C+Berisso" target="_blank" rel="noopener" data-cursor="hover">
+            <span class="boton__texto">Ver ubicación</span>
+            <span class="boton__brillo" aria-hidden="true"></span>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TIMELINE — momentos de la noche con línea vertical animada
+         ============================================================ -->
+    <section class="momentos seccion" id="momentos">
+      <div class="contenedor contenedor--angosto">
+        <p class="etiqueta" data-anim="fade-up">Paso a paso</p>
+        <h2 class="titulo" data-anim="split">Una noche para recordar</h2>
+
+        <ol class="linea-tiempo" id="lineaTiempo">
+          <span class="linea-tiempo__eje" aria-hidden="true"><i id="ejeProgreso"></i></span>
+
+          <li class="linea-tiempo__hito" data-anim="hito">
+            <span class="linea-tiempo__punto" aria-hidden="true"></span>
+            <div class="linea-tiempo__detalle">
+              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0V4Z" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6H4.5a2.5 2.5 0 0 0 0 5H7M17 6h2.5a2.5 2.5 0 0 1 0 5H17" stroke="currentColor" stroke-width="1.1"/></svg>
+              <h3>Recepción</h3>
+              <p>Los recibimos con una copa para brindar por el reencuentro.</p>
+            </div>
+          </li>
+
+          <li class="linea-tiempo__hito" data-anim="hito">
+            <span class="linea-tiempo__punto" aria-hidden="true"></span>
+            <div class="linea-tiempo__detalle">
+              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="14" r="5" stroke="currentColor" stroke-width="1.1"/><circle cx="15" cy="14" r="5" stroke="currentColor" stroke-width="1.1"/><path d="M12 6.5 10.5 4.8 12 3l1.5 1.8L12 6.5Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+              <h3>Ceremonia</h3>
+              <p>El momento más esperado: nuestro sí, para siempre.</p>
+            </div>
+          </li>
+
+          <li class="linea-tiempo__hito" data-anim="hito">
+            <span class="linea-tiempo__punto" aria-hidden="true"></span>
+            <div class="linea-tiempo__detalle">
+              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 3h8l-1 7a3 3 0 0 1-6 0L8 3ZM12 13v6m-3 2h6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Brindis</h3>
+              <p>Levantamos las copas para celebrar el comienzo.</p>
+            </div>
+          </li>
+
+          <li class="linea-tiempo__hito" data-anim="hito">
+            <span class="linea-tiempo__punto" aria-hidden="true"></span>
+            <div class="linea-tiempo__detalle">
+              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="13" r="7" stroke="currentColor" stroke-width="1.1"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.1"/><path d="M9 3.5h6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+              <h3>Cena</h3>
+              <p>Una mesa compartida, como toda buena historia.</p>
+            </div>
+          </li>
+
+          <li class="linea-tiempo__hito" data-anim="hito">
+            <span class="linea-tiempo__punto" aria-hidden="true"></span>
+            <div class="linea-tiempo__detalle">
+              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v3m6.4-.4-2.1 2.1M21 12h-3M5.6 5.6l2.1 2.1M3 12h3m2 9 4-6 4 6H8Z" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Fiesta</h3>
+              <p>La pista es de todos. Bailamos hasta que el cuerpo diga basta.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DRESS CODE — tarjeta premium con acentos bordó
+         ============================================================ -->
+    <section class="dresscode seccion" id="dresscode">
+      <div class="contenedor contenedor--angosto">
+        <article class="dresscode__tarjeta" data-anim="zoom">
+          <span class="dresscode__cinta" aria-hidden="true"></span>
+          <p class="etiqueta" data-anim="fade-up">Qué ponerse</p>
+          <h2 class="titulo" data-anim="split">Dress Code</h2>
+
+          <p class="dresscode__nivel" data-anim="fade-up">Elegante</p>
+
+          <div class="dresscode__paleta" data-anim="fade-up" data-anim-delay="0.2" aria-hidden="true">
+            <span style="--tono:#4A0F1E"></span>
+            <span style="--tono:#61152A"></span>
+            <span style="--tono:#B99B5F"></span>
+            <span style="--tono:#E6D5B8"></span>
+            <span style="--tono:#5D6A4A"></span>
+          </div>
+
+          <p class="parrafo parrafo--suave" data-anim="fade-up" data-anim-delay="0.3">
+            Vestí tu mejor versión: la noche lo merece y nosotros también queremos verte brillar.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONFIRMACIÓN — formulario conectado a Google Sheets
+         ============================================================ -->
+    <section class="rsvp seccion seccion--oscura" id="confirmacion">
+      <div class="contenedor contenedor--angosto">
+        <p class="etiqueta etiqueta--clara" data-anim="fade-up">Tu lugar te espera</p>
+        <h2 class="titulo titulo--claro" data-anim="split">Confirmá tu asistencia</h2>
+        <p class="parrafo parrafo--claro" data-anim="fade-up">
+          Ayudanos a preparar cada detalle confirmando antes del <strong>1 de noviembre</strong>.
+        </p>
+
+        <form class="rsvp__formulario tarjeta-vidrio" id="formRSVP" data-anim="zoom" novalidate>
+          <div class="rsvp__fila">
+            <div class="campo">
+              <input class="campo__entrada" type="text" id="nombre" name="nombre" required autocomplete="given-name" placeholder=" ">
+              <label class="campo__rotulo" for="nombre">Nombre</label>
+            </div>
+            <div class="campo">
+              <input class="campo__entrada" type="text" id="apellido" name="apellido" required autocomplete="family-name" placeholder=" ">
+              <label class="campo__rotulo" for="apellido">Apellido</label>
+            </div>
+          </div>
+
+          <div class="rsvp__fila">
+            <div class="campo">
+              <input class="campo__entrada" type="number" id="asistentes" name="asistentes" min="1" max="10" value="1" required placeholder=" ">
+              <label class="campo__rotulo" for="asistentes">Cantidad de asistentes</label>
+            </div>
+
+            <fieldset class="campo campo--opciones">
+              <legend class="campo__leyenda">¿Asistirá?</legend>
+              <div class="rsvp__opciones">
+                <label class="opcion" data-cursor="hover">
+                  <input type="radio" name="asistira" value="Sí" required>
+                  <span class="opcion__pastilla">Sí, ahí estaré</span>
+                </label>
+                <label class="opcion" data-cursor="hover">
+                  <input type="radio" name="asistira" value="No">
+                  <span class="opcion__pastilla">No podré ir</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="campo">
+            <textarea class="campo__entrada campo__entrada--area" id="mensaje" name="mensaje" rows="3" placeholder=" "></textarea>
+            <label class="campo__rotulo" for="mensaje">Mensaje para los novios (opcional)</label>
+          </div>
+
+          <button class="boton boton--dorado rsvp__enviar" type="submit" data-cursor="hover">
+            <span class="boton__texto">Confirmar asistencia</span>
+            <span class="boton__brillo" aria-hidden="true"></span>
+          </button>
+
+          <p class="rsvp__estado" id="rsvpEstado" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         REGALOS
+         ============================================================ -->
+    <section class="regalos seccion" id="regalos">
+      <div class="contenedor contenedor--angosto">
+        <svg class="florituras" viewBox="0 0 160 60" fill="none" aria-hidden="true" data-anim="dibujo">
+          <path class="trazo" d="M30 30 C55 8, 105 8, 130 30 C105 52, 55 52, 30 30 Z" stroke="currentColor" stroke-width="0.9"/>
+          <circle class="trazo" cx="80" cy="30" r="6" stroke="currentColor" stroke-width="0.9"/>
+        </svg>
+
+        <h2 class="titulo" data-anim="split">El mejor regalo será compartir este día con vos.</h2>
+        <p class="parrafo" data-anim="fade-up">
+          Tu presencia es el regalo más valioso que podemos recibir y será suficiente
+          para hacer este momento inolvidable.
+        </p>
+        <p class="parrafo" data-anim="fade-up" data-anim-delay="0.15">
+          Si además querés acompañarnos con un presente para comenzar esta nueva etapa,
+          te agradecemos que sea mediante una colaboración económica que nos ayudará a
+          construir nuestros próximos sueños juntos.
+        </p>
+
+        <div class="regalos__alias" data-anim="zoom">
+          <span class="regalos__alias-rotulo">Alias</span>
+          <span class="regalos__alias-valor" id="aliasValor">nati.vergara.mp</span>
+          <button class="boton boton--vino" id="btnCopiar" data-cursor="hover">
+            <span class="boton__texto">Copiar Alias</span>
+            <span class="boton__brillo" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Aviso flotante al copiar -->
+      <div class="brindis-copia" id="avisoCopia" role="status" aria-live="polite">Alias copiado ❤️</div>
+    </section>
+
+    <!-- ============================================================
+         SOLO ADULTOS — tarjeta delicada
+         ============================================================ -->
+    <section class="adultos seccion" id="adultos">
+      <div class="contenedor contenedor--angosto">
+        <article class="adultos__tarjeta" data-anim="zoom">
+          <svg class="adultos__luna" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M30 6a18 18 0 1 0 12 30A20 20 0 0 1 30 6Z" stroke="currentColor" stroke-width="1"/>
+            <path class="adultos__estrellas" d="M36 12l.9 2.1L39 15l-2.1.9L36 18l-.9-2.1L33 15l2.1-.9L36 12Z" fill="currentColor"/>
+          </svg>
+          <h2 class="titulo titulo--mediano">Una noche entre grandes</h2>
+          <p class="parrafo parrafo--suave">
+            Amamos a los más pequeños y sabemos lo importantes que son para cada familia.
+          </p>
+          <p class="parrafo parrafo--suave">
+            Sin embargo, debido a las características del lugar —que cuenta con un lago y
+            espacios sin vigilancia—, nuestra celebración será exclusivamente para adultos.
+          </p>
+          <p class="parrafo parrafo--suave">
+            Esperamos que puedas disfrutar de una noche especial junto a nosotros mientras
+            los niños descansan en casa.
+          </p>
+          <p class="parrafo parrafo--acento">Gracias por comprender y acompañarnos en esta decisión.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VERSÍCULO — interludio con fondo bordó profundo
+         ============================================================ -->
+    <section class="versiculo seccion seccion--oscura" id="versiculo">
+      <span class="versiculo__marca" aria-hidden="true" data-parallax="0.15">N&amp;L</span>
+      <div class="contenedor contenedor--angosto">
+        <svg class="florituras florituras--clara" viewBox="0 0 160 60" fill="none" aria-hidden="true" data-anim="dibujo">
+          <path class="trazo" d="M20 30 H62 M98 30 H140 M80 14 l7 16 -7 16 -7 -16 7 -16 Z" stroke="currentColor" stroke-width="0.9" stroke-linejoin="round"/>
+        </svg>
+        <h2 class="versiculo__cita" data-anim="split">Eclesiastés 4:9-12</h2>
+        <p class="versiculo__texto" data-anim="fade-up" data-anim-delay="0.25">
+          «Mejores son dos que uno, porque tienen mejor recompensa por su trabajo.»
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GALERÍA — masonry + lightbox + lazy loading
+         ============================================================ -->
+    <section class="galeria seccion" id="galeria">
+      <div class="contenedor">
+        <p class="etiqueta" data-anim="fade-up">Nuestra historia</p>
+        <h2 class="titulo" data-anim="split">Momentos que nos trajeron hasta acá</h2>
+
+        <div class="galeria__grilla" id="galeriaGrilla">
+          <!-- Cada figura abre el lightbox. loading="lazy" + decoding="async" -->
+          <figure class="galeria__pieza" data-anim="pieza"><img loading="lazy" decoding="async" src="assets/images/gallery/foto-01.svg" alt="Nati y Lean — recuerdo 1"></figure>
+          <figure class="galeria__pieza" data-anim="pieza"><img loading="lazy" decoding="async" src="assets/images/gallery/foto-02.svg" alt="Nati y Lean — recuerdo 2"></figure>
+          <figure class="galeria__pieza" data-anim="pieza"><img loading="lazy" decoding="async" src="assets/images/gallery/foto-03.svg" alt="Nati y Lean — recuerdo 3"></figure>
+          <figure class="galeria__pieza" data-anim="pieza"><img loading="lazy" decoding="async" src="assets/images/gallery/foto-04.svg" alt="Nati y Lean — recuerdo 4"></figure>
+          <figure class="galeria__pieza" data-anim="pieza"><img loading="lazy" decoding="async" src="assets/images/gallery/foto-05.svg" alt="Nati y Lean — recuerdo 5"></figure>
+          <figure class="galeria__pieza" data-anim="pieza"><img loading="lazy" decoding="async" src="assets/images/gallery/foto-06.svg" alt="Nati y Lean — recuerdo 6"></figure>
+          <figure class="galeria__pieza" data-anim="pieza"><img loading="lazy" decoding="async" src="assets/images/gallery/foto-07.svg" alt="Nati y Lean — recuerdo 7"></figure>
+          <figure class="galeria__pieza" data-anim="pieza"><img loading="lazy" decoding="async" src="assets/images/gallery/foto-08.svg" alt="Nati y Lean — recuerdo 8"></figure>
+        </div>
+      </div>
+
+      <!-- Lightbox -->
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galería ampliada" hidden>
+        <button class="lightbox__cerrar" id="lbCerrar" aria-label="Cerrar" data-cursor="hover">✕</button>
+        <button class="lightbox__flecha lightbox__flecha--izq" id="lbAnterior" aria-label="Foto anterior" data-cursor="hover">‹</button>
+        <img class="lightbox__imagen" id="lbImagen" src="" alt="">
+        <button class="lightbox__flecha lightbox__flecha--der" id="lbSiguiente" aria-label="Foto siguiente" data-cursor="hover">›</button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER — despedida
+         ============================================================ -->
+    <footer class="cierre seccion--oscura" id="cierre">
+      <div class="contenedor contenedor--angosto">
+        <p class="cierre__iniciales" data-anim="fade-up" aria-hidden="true">N <span>&amp;</span> L</p>
+        <p class="parrafo parrafo--claro" data-anim="fade-up" data-anim-delay="0.15">
+          Gracias por ser parte de nuestra historia.
+        </p>
+        <p class="parrafo parrafo--claro" data-anim="fade-up" data-anim-delay="0.25">
+          Nos sentimos profundamente felices de compartir este día con personas
+          tan importantes para nosotros.
+        </p>
+        <p class="cierre__firma" data-anim="fade-up" data-anim-delay="0.4">Con cariño,<br><strong>Nati &amp; Lean</strong></p>
+        <span class="cierre__fecha" data-anim="fade-up" data-anim-delay="0.5">27 · 11 · 2026</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ——— Librerías de animación (livianas, auto-hospedadas) ——— -->
+  <script src="assets/vendor/gsap.min.js" defer></script>
+  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
+
+  <!-- ——— Script principal ——— -->
+  <script src="script.js" defer></script>
+</body>
+</html>

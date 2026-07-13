@@ -1,0 +1,92 @@
+/* ============================================================
+   Tipografías auto-hospedadas (subset latin, woff2)
+   Cormorant Garamond · Playfair Display · Poppins · Montserrat
+   ============================================================ */
+
+/* ——— Cormorant Garamond: títulos ——— */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal; font-weight: 300; font-display: swap;
+  src: url('cormorant-garamond-latin-300-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url('cormorant-garamond-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url('cormorant-garamond-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal; font-weight: 600; font-display: swap;
+  src: url('cormorant-garamond-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic; font-weight: 400; font-display: swap;
+  src: url('cormorant-garamond-latin-400-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic; font-weight: 500; font-display: swap;
+  src: url('cormorant-garamond-latin-500-italic.woff2') format('woff2');
+}
+
+/* ——— Playfair Display: subtítulos ——— */
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url('playfair-display-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url('playfair-display-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: italic; font-weight: 400; font-display: swap;
+  src: url('playfair-display-latin-400-italic.woff2') format('woff2');
+}
+
+/* ——— Poppins: texto ——— */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal; font-weight: 200; font-display: swap;
+  src: url('poppins-latin-200-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal; font-weight: 300; font-display: swap;
+  src: url('poppins-latin-300-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url('poppins-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url('poppins-latin-500-normal.woff2') format('woff2');
+}
+
+/* ——— Montserrat: botones ——— */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal; font-weight: 400; font-display: swap;
+  src: url('montserrat-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal; font-weight: 500; font-display: swap;
+  src: url('montserrat-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal; font-weight: 600; font-display: swap;
+  src: url('montserrat-latin-600-normal.woff2') format('woff2');
+}
