@@ -14,10 +14,9 @@
    09. Animaciones de scroll (fade, zoom, split, dibujo, parallax)
    10. Timeline animada
    11. Cuenta regresiva
-   12. RSVP → Google Sheets (Apps Script)
-   13. Copiar alias
-   14. Galería: lightbox
-   15. Botón volver arriba
+   12. Álbum compartido (link configurable)
+   13. Copiar alias (uno por cada novio)
+   14. Botón volver arriba
    ============================================================ */
 
 'use strict';
@@ -27,8 +26,9 @@ const CONFIG = {
   // Fecha y hora de la ceremonia (Argentina, UTC-3)
   fechaBoda: new Date('2026-11-27T18:30:00-03:00'),
 
-  // URL del Web App de Google Apps Script (ver README.md, sección "Google Sheets")
-  urlAppsScript: 'PEGAR_AQUI_LA_URL_DEL_WEB_APP',
+  // Link del álbum compartido (Google Fotos u otro).
+  // Reemplazar por la URL real, p. ej.: 'https://photos.app.goo.gl/XXXXXXXX'
+  urlAlbum: 'https://photos.app.goo.gl/CAMBIAR-POR-EL-LINK-DEL-ALBUM',
 
   // Clave usada para recordar el estado de la música entre visitas
   claveMusica: 'nyl-musica',
@@ -63,9 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     $('#preloader').classList.add('preloader--fuera');
     iniciarMusica();
     iniciarCuentaRegresiva();
-    iniciarRSVP();
+    iniciarAlbum();
     iniciarCopiarAlias();
-    iniciarLightbox();
     $('#btnAbrir').addEventListener('click', () => {
       reproducirMusica();
       document.body.dataset.estado = 'abierta';
@@ -86,9 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarAnimacionesScroll();
   iniciarTimeline();
   iniciarCuentaRegresiva();
-  iniciarRSVP();
+  iniciarAlbum();
   iniciarCopiarAlias();
-  iniciarLightbox();
   iniciarBotonArriba();
 });
 
@@ -162,7 +160,7 @@ function iniciarCursor() {
   });
 
   // El halo se expande sobre elementos interactivos
-  $$('a, button, [data-cursor="hover"], .galeria__pieza').forEach((el) => {
+  $$('a, button, [data-cursor="hover"]').forEach((el) => {
     el.addEventListener('pointerenter', () => halo.classList.add('cursor-halo--activo'));
     el.addEventListener('pointerleave', () => halo.classList.remove('cursor-halo--activo'));
   });
@@ -399,128 +397,47 @@ function iniciarCuentaRegresiva() {
   setInterval(actualizar, 1000);
 }
 
-/* ————— 12. RSVP → GOOGLE SHEETS ————— */
-function iniciarRSVP() {
-  const formulario = $('#formRSVP');
-  const estado = $('#rsvpEstado');
-  const btnEnviar = $('.rsvp__enviar');
-
-  formulario.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Validación nativa con mensaje amable
-    if (!formulario.checkValidity()) {
-      estado.textContent = 'Por favor completá los campos marcados.';
-      formulario.reportValidity();
-      return;
-    }
-
-    if (CONFIG.urlAppsScript.startsWith('PEGAR_AQUI')) {
-      estado.textContent = 'El formulario aún no está conectado (ver README.md).';
-      return;
-    }
-
-    btnEnviar.disabled = true;
-    estado.textContent = 'Enviando…';
-
-    try {
-      // mode: no-cors → Apps Script recibe el POST aunque no devuelva CORS.
-      await fetch(CONFIG.urlAppsScript, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(Object.fromEntries(new FormData(formulario))),
-      });
-
-      estado.textContent = '¡Gracias por confirmar! Nos vemos el 27 de noviembre ❤️';
-      formulario.reset();
-
-      // Pequeña celebración: el formulario respira
-      if (window.gsap) gsap.fromTo(formulario, { scale: 1 }, { scale: 1.015, yoyo: true, repeat: 1, duration: 0.35, ease: 'power2.inOut' });
-    } catch {
-      estado.textContent = 'Hubo un problema al enviar. Probá de nuevo en unos minutos.';
-    } finally {
-      btnEnviar.disabled = false;
-    }
-  });
+/* ————— 12. ÁLBUM COMPARTIDO ————— */
+function iniciarAlbum() {
+  // El link vive en CONFIG.urlAlbum para poder cambiarlo sin tocar el HTML
+  $('#btnAlbum').href = CONFIG.urlAlbum;
 }
 
 /* ————— 13. COPIAR ALIAS ————— */
 function iniciarCopiarAlias() {
-  const boton = $('#btnCopiar');
   const aviso = $('#avisoCopia');
   let temporizador = null;
 
-  boton.addEventListener('click', async () => {
-    const alias = $('#aliasValor').textContent.trim();
+  $$('[data-alias]').forEach((boton) => {
+    boton.addEventListener('click', async () => {
+      const alias = boton.dataset.alias;
 
-    try {
-      await navigator.clipboard.writeText(alias);
-    } catch {
-      // Fallback para contextos sin Clipboard API (http, navegadores viejos)
-      const auxiliar = document.createElement('textarea');
-      auxiliar.value = alias;
-      document.body.appendChild(auxiliar);
-      auxiliar.select();
-      document.execCommand('copy');
-      auxiliar.remove();
-    }
+      try {
+        await navigator.clipboard.writeText(alias);
+      } catch {
+        // Fallback para contextos sin Clipboard API (http, navegadores viejos)
+        const auxiliar = document.createElement('textarea');
+        auxiliar.value = alias;
+        auxiliar.setAttribute('readonly', '');
+        auxiliar.style.position = 'fixed';
+        auxiliar.style.opacity = '0';
+        document.body.appendChild(auxiliar);
+        auxiliar.select();
+        document.execCommand('copy');
+        auxiliar.remove();
+      }
 
-    // Animación de confirmación
-    aviso.classList.add('brindis-copia--visible');
-    if (window.gsap) gsap.fromTo(boton, { scale: 1 }, { scale: 0.94, yoyo: true, repeat: 1, duration: 0.16, ease: 'power2.inOut' });
+      // Animación de confirmación
+      aviso.classList.add('brindis-copia--visible');
+      if (window.gsap) gsap.fromTo(boton, { scale: 1 }, { scale: 0.94, yoyo: true, repeat: 1, duration: 0.16, ease: 'power2.inOut' });
 
-    clearTimeout(temporizador);
-    temporizador = setTimeout(() => aviso.classList.remove('brindis-copia--visible'), 2600);
+      clearTimeout(temporizador);
+      temporizador = setTimeout(() => aviso.classList.remove('brindis-copia--visible'), 2600);
+    });
   });
 }
 
-/* ————— 14. GALERÍA: LIGHTBOX ————— */
-function iniciarLightbox() {
-  const caja = $('#lightbox');
-  const imagen = $('#lbImagen');
-  const piezas = $$('.galeria__pieza img');
-  let indiceActual = 0;
-
-  const abrir = (indice) => {
-    indiceActual = indice;
-    imagen.src = piezas[indice].src;
-    imagen.alt = piezas[indice].alt;
-    caja.hidden = false;
-    requestAnimationFrame(() => caja.classList.add('lightbox--visible'));
-    if (lenis) lenis.stop(); // congela el scroll de fondo
-  };
-
-  const cerrar = () => {
-    caja.classList.remove('lightbox--visible');
-    setTimeout(() => { caja.hidden = true; }, 500);
-    if (lenis) lenis.start();
-  };
-
-  const navegar = (paso) => {
-    indiceActual = (indiceActual + paso + piezas.length) % piezas.length;
-    // Micro-transición entre fotos
-    if (window.gsap) gsap.fromTo(imagen, { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' });
-    imagen.src = piezas[indiceActual].src;
-    imagen.alt = piezas[indiceActual].alt;
-  };
-
-  piezas.forEach((img, i) => img.parentElement.addEventListener('click', () => abrir(i)));
-  $('#lbCerrar').addEventListener('click', cerrar);
-  $('#lbAnterior').addEventListener('click', () => navegar(-1));
-  $('#lbSiguiente').addEventListener('click', () => navegar(1));
-
-  // Cerrar al hacer clic fuera de la imagen o con Escape / navegar con flechas
-  caja.addEventListener('click', (e) => { if (e.target === caja) cerrar(); });
-  document.addEventListener('keydown', (e) => {
-    if (caja.hidden) return;
-    if (e.key === 'Escape') cerrar();
-    if (e.key === 'ArrowLeft') navegar(-1);
-    if (e.key === 'ArrowRight') navegar(1);
-  });
-}
-
-/* ————— 15. BOTÓN VOLVER ARRIBA ————— */
+/* ————— 14. BOTÓN VOLVER ARRIBA ————— */
 function iniciarBotonArriba() {
   const boton = $('#btnArriba');
 

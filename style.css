@@ -19,7 +19,7 @@
    14. Regalos
    15. Solo adultos
    16. Versículo
-   17. Galería + lightbox
+   17. Álbum compartido
    18. Footer
    19. Accesibilidad y responsive
    ============================================================ */
@@ -458,10 +458,39 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.8; }
   font-family: var(--f-botones); font-size: 0.68rem; font-weight: 500;
   letter-spacing: 0.32em; text-transform: uppercase; color: var(--dorado-claro);
 }
+.ceremonia__direccion {
+  font-size: 0.88rem; line-height: 1.7;
+  color: rgba(247, 243, 238, 0.78);
+}
+.ceremonia__puntual {
+  margin-top: 0.5rem;
+  font-size: 0.85rem; line-height: 1.7;
+  color: rgba(247, 243, 238, 0.78);
+}
+.ceremonia__puntual strong { color: var(--champagne); font-weight: 500; }
 .ceremonia__divisor {
   width: 90px; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(230, 213, 184, 0.55), transparent);
 }
+.ceremonia__acciones { display: flex; gap: 0.9rem; flex-wrap: wrap; justify-content: center; }
+
+/* Preview visual de la finca */
+.ceremonia__fotos {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem; max-width: 860px;
+  margin: 2.6rem auto 0;
+}
+.ceremonia__foto {
+  margin: 0; border-radius: 6px; overflow: hidden;
+  border: 1px solid rgba(230, 213, 184, 0.2);
+  box-shadow: 0 24px 54px -24px rgba(0, 0, 0, 0.55);
+  aspect-ratio: 4 / 3;
+}
+.ceremonia__foto img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s var(--suave);
+}
+.ceremonia__foto:hover img { transform: scale(1.05); }
 
 /* ————— 11. TIMELINE ————— */
 .momentos { background: var(--marfil); }
@@ -524,98 +553,84 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.8; }
 .dresscode__nivel {
   font-family: var(--f-subtitulos); font-style: italic;
   font-size: clamp(1.5rem, 3.4vw, 2rem); color: var(--vino);
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
 }
-.dresscode__paleta { display: flex; justify-content: center; gap: 0.9rem; margin-bottom: 2rem; }
-.dresscode__paleta span {
-  width: 34px; height: 34px; border-radius: 50%;
+
+/* Colores a evitar: círculo + nombre */
+.dresscode__paleta {
+  list-style: none;
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: clamp(0.9rem, 3.5vw, 1.8rem);
+  margin: 0.4rem 0 2rem;
+}
+.dresscode__muestra { display: grid; justify-items: center; gap: 0.55rem; }
+.dresscode__circulo {
+  width: clamp(38px, 9vw, 46px); height: clamp(38px, 9vw, 46px);
+  border-radius: 50%;
   background: var(--tono);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 8px 18px -8px var(--tono);
+  /* El borde hace visible incluso al círculo blanco sobre fondo marfil */
+  box-shadow: inset 0 0 0 1px rgba(31, 31, 31, 0.14), 0 10px 20px -10px rgba(31, 31, 31, 0.35);
+  position: relative;
   transition: transform 0.5s var(--suave);
 }
-.dresscode__paleta span:hover { transform: translateY(-6px) scale(1.08); }
+/* Línea diagonal: refuerza que son colores a EVITAR */
+.dresscode__circulo::after {
+  content: "";
+  position: absolute; left: 50%; top: 50%;
+  width: 130%; height: 1.5px;
+  background: rgba(31, 31, 31, 0.5);
+  transform: translate(-50%, -50%) rotate(-45deg);
+  border-radius: 2px;
+}
+.dresscode__muestra:hover .dresscode__circulo { transform: translateY(-6px) scale(1.08); }
+.dresscode__nombre {
+  font-family: var(--f-botones); font-size: 0.62rem; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+.dresscode__nota { margin-bottom: 0; }
 
 /* ————— 13. CONFIRMACIÓN (RSVP) ————— */
 .rsvp { background: linear-gradient(165deg, var(--bordo-profundo), var(--bordo) 60%, var(--vino)); }
 
-.rsvp__formulario {
-  margin: 2.5rem auto 0; max-width: 620px;
-  padding: clamp(2rem, 5vw, 3.2rem);
-  display: grid; gap: 1.6rem; text-align: left;
+.rsvp__sello {
+  width: clamp(74px, 14vw, 92px);
+  margin: 0 auto 2rem; display: block;
+  color: var(--dorado-claro);
 }
-.rsvp__fila { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+.rsvp__sello-texto {
+  font-family: var(--f-titulos); font-size: 24px;
+  fill: currentColor; letter-spacing: 2px;
+}
 
-.campo { position: relative; display: grid; }
-.campo__entrada {
-  font-family: var(--f-texto); font-size: 0.95rem; font-weight: 300;
-  color: var(--marfil);
+.rsvp__fecha-limite strong { color: var(--dorado-claro); font-weight: 500; }
+.rsvp__whatsapp { margin-top: 0.8rem; padding: 1.25rem 3.4rem; }
+
+/* Nota destacada: sin confirmación no hay ingreso */
+.rsvp__nota {
+  max-width: 52ch;
+  margin: 2.4rem auto 0;
+  font-size: 0.82rem; line-height: 1.8;
+  color: rgba(247, 243, 238, 0.75);
+  border: 1px solid rgba(230, 213, 184, 0.28);
+  border-radius: 6px;
+  padding: 1.1rem 1.5rem;
   background: rgba(247, 243, 238, 0.05);
-  border: 1px solid rgba(230, 213, 184, 0.25);
-  border-radius: var(--radio);
-  padding: 1.35rem 1.1rem 0.6rem;
-  outline: none;
-  transition: border-color 0.4s, background-color 0.4s, box-shadow 0.4s;
-}
-.campo__entrada:focus {
-  border-color: var(--dorado);
-  background: rgba(247, 243, 238, 0.09);
-  box-shadow: 0 0 0 3px rgba(185, 155, 95, 0.18);
-}
-.campo__entrada--area { resize: vertical; min-height: 96px; }
-
-/* Rótulo flotante */
-.campo__rotulo {
-  position: absolute; left: 1.1rem; top: 1rem;
-  font-family: var(--f-botones); font-size: 0.8rem;
-  color: rgba(230, 213, 184, 0.7);
-  pointer-events: none;
-  transition: transform 0.35s var(--suave), font-size 0.35s var(--suave), color 0.35s;
-  transform-origin: left top;
-}
-.campo__entrada:focus + .campo__rotulo,
-.campo__entrada:not(:placeholder-shown) + .campo__rotulo {
-  transform: translateY(-0.55rem); font-size: 0.6rem;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--dorado-claro);
-}
-
-.campo--opciones { border: none; }
-.campo__leyenda {
-  font-family: var(--f-botones); font-size: 0.6rem; font-weight: 500;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--dorado-claro); margin-bottom: 0.6rem;
-}
-.rsvp__opciones { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-.opcion input { position: absolute; opacity: 0; }
-.opcion__pastilla {
-  display: inline-block; cursor: pointer;
-  font-family: var(--f-botones); font-size: 0.72rem; letter-spacing: 0.08em;
-  color: rgba(247, 243, 238, 0.8);
-  border: 1px solid rgba(230, 213, 184, 0.3);
-  border-radius: 100px; padding: 0.55rem 1.2rem;
-  transition: all 0.4s var(--suave);
-}
-.opcion input:checked + .opcion__pastilla {
-  background: var(--dorado); border-color: var(--dorado);
-  color: var(--bordo-profundo); font-weight: 600;
-}
-.opcion input:focus-visible + .opcion__pastilla { outline: 2px solid var(--dorado-claro); outline-offset: 2px; }
-
-.rsvp__enviar { justify-self: center; margin-top: 0.4rem; }
-.rsvp__enviar[disabled] { opacity: 0.6; pointer-events: none; }
-.rsvp__estado {
-  text-align: center; font-size: 0.85rem; min-height: 1.4em;
-  color: var(--dorado-claro); font-style: italic;
 }
 
 /* ————— 14. REGALOS ————— */
 .regalos { background: var(--marfil); }
+.regalos__grilla {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.4rem; max-width: 720px;
+  margin: 2.6rem auto 0;
+}
 .regalos__alias {
-  margin: 2.6rem auto 0; max-width: 460px;
   background: var(--marfil-suave);
   border: 1px dashed rgba(185, 155, 95, 0.55);
   border-radius: 6px;
-  padding: 2.2rem 1.8rem;
-  display: grid; justify-items: center; gap: 0.8rem;
+  padding: 2.2rem 1.4rem;
+  display: grid; justify-items: center; align-content: start; gap: 0.8rem;
 }
 .regalos__alias-rotulo {
   font-family: var(--f-botones); font-size: 0.6rem; font-weight: 500;
@@ -680,55 +695,14 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.8; }
   max-width: 46ch; margin-inline: auto;
 }
 
-/* ————— 17. GALERÍA + LIGHTBOX ————— */
-.galeria { background: var(--marfil); }
-.galeria__grilla {
-  columns: 3 260px;          /* masonry con CSS columns: liviano y fluido */
-  column-gap: 1.2rem;
-  margin-top: 3rem;
+/* ————— 17. ÁLBUM COMPARTIDO ————— */
+.album { background: var(--marfil); }
+.album__camara {
+  width: clamp(46px, 9vw, 56px);
+  margin: 0 auto 1.8rem; display: block;
+  color: var(--dorado);
 }
-.galeria__pieza {
-  break-inside: avoid;
-  margin: 0 0 1.2rem;
-  border-radius: 5px; overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 16px 40px -20px rgba(31, 31, 31, 0.35);
-}
-.galeria__pieza img {
-  width: 100%;
-  transition: transform 1.2s var(--suave), filter 1.2s var(--suave);
-}
-.galeria__pieza:hover img { transform: scale(1.05); filter: saturate(1.08); }
-
-.lightbox {
-  position: fixed; inset: 0; z-index: 97;
-  display: grid; place-items: center;
-  background: rgba(23, 8, 13, 0.94);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  opacity: 0; transition: opacity 0.5s var(--suave);
-  padding: 3.5rem 1rem;
-}
-.lightbox[hidden] { display: none; } /* el display:grid no debe pisar al atributo hidden */
-.lightbox--visible { opacity: 1; }
-.lightbox__imagen {
-  max-width: min(92vw, 1000px); max-height: 82dvh;
-  border-radius: 5px; object-fit: contain;
-  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.8);
-}
-.lightbox__cerrar, .lightbox__flecha {
-  position: absolute; z-index: 1;
-  color: var(--champagne); font-size: 1.4rem;
-  width: 48px; height: 48px; border-radius: 50%;
-  display: grid; place-items: center;
-  border: 1px solid rgba(230, 213, 184, 0.3);
-  transition: background-color 0.4s, transform 0.4s var(--suave);
-}
-.lightbox__cerrar:hover, .lightbox__flecha:hover { background: rgba(230, 213, 184, 0.12); transform: scale(1.06); }
-.lightbox__cerrar { top: 1.2rem; right: 1.2rem; font-size: 1.05rem; }
-.lightbox__flecha { top: 50%; translate: 0 -50%; font-size: 2rem; font-family: var(--f-titulos); }
-.lightbox__flecha--izq { left: 1rem; }
-.lightbox__flecha--der { right: 1rem; }
+.album__boton { margin-top: 0.6rem; }
 
 /* ————— 18. FOOTER ————— */
 .cierre {
@@ -756,6 +730,11 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.8; }
   border-top: 1px solid rgba(185, 155, 95, 0.3);
   padding-top: 1.4rem;
 }
+.cierre__credito {
+  margin-top: 2.6rem;
+  font-size: 0.68rem; letter-spacing: 0.08em;
+  color: rgba(247, 243, 238, 0.35);
+}
 
 /* ————— 19. ACCESIBILIDAD Y RESPONSIVE ————— */
 
@@ -773,12 +752,11 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.8; }
 }
 
 @media (max-width: 640px) {
-  .rsvp__fila { grid-template-columns: 1fr; }
   .cuenta__sep { display: none; }
   .cuenta__reloj { flex-wrap: wrap; row-gap: 1.6rem; }
   .cuenta__bloque { min-width: 40%; }
   .arriba { bottom: 5.4rem; right: 1.45rem; width: 42px; height: 42px; }
-  .lightbox__flecha { top: auto; bottom: 1.2rem; translate: none; }
-  .lightbox__flecha--izq { left: 28%; }
-  .lightbox__flecha--der { right: 28%; }
+  .regalos__grilla { grid-template-columns: 1fr; }
+  .ceremonia__fotos { grid-template-columns: 1fr; max-width: 420px; }
+  .ceremonia__acciones { flex-direction: column; align-items: stretch; width: 100%; }
 }
