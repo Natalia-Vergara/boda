@@ -47,8 +47,8 @@ boda/
 └─ assets/
    ├─ fonts/             → Tipografías auto-hospedadas (woff2)
    ├─ music/             → cancion.mp3 (agregar aquí la canción elegida)
-   ├─ images/            → hero.svg, og-cover.svg
-   │   └─ finca/         → finca-01 … finca-03 (reemplazar por fotos reales del lugar)
+   ├─ images/            → og-cover.jpg (vista previa al compartir)
+   │   └─ finca/         → finca-01 … finca-03 (fotos del lugar)
    ├─ vendor/            → gsap, ScrollTrigger, lenis (auto-hospedados)
    └─ icons/             → favicon.svg
 ```
@@ -97,7 +97,7 @@ python3 -m http.server 8080
 | **Invitados y pases** | `invitados.js` (un renglón por invitado/familia) |
 | **Fotos de fondo** (sobre, portada, versículo, cierre) | Guardarlas en `assets/images/fondos/` con los nombres que indica el `LEEME.txt` de esa carpeta |
 | **Link del álbum compartido** | `CONFIG.urlAlbum` en `script.js` (pegar el link de Google Fotos) |
-| Fotos de la finca | Reemplazar `assets/images/finca/finca-01.svg` … `finca-03.svg` por fotos reales de `@fincalajosefinaeventos` en `.jpg/.webp` (actualizar las rutas en `index.html`). Ideal: WebP ≤ 200 KB por foto |
+| Fotos de la finca | `assets/images/finca/finca-01.jpg` … `finca-03.jpg` (proporción 4:3). Si falta alguna, esa foto se oculta sola; si faltan las tres, se oculta el bloque entero |
 | Música | Colocar el MP3 en `assets/music/cancion.mp3` |
 | Imagen del hero | Reemplazar `assets/images/hero.svg` por una foto (actualizar la ruta en `index.html`) |
 | Fecha de la cuenta regresiva | `CONFIG.fechaBoda` en `script.js` |
