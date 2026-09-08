@@ -357,7 +357,7 @@ main { position: relative; z-index: 2; }
   background-image: url("assets/images/fondos/sobre.jpg");
   background-size: cover; background-position: center;
   filter: grayscale(1) contrast(1.05);   /* blanco y negro, como la referencia */
-  opacity: 0.55;
+  opacity: 0.72;
 }
 .escena__fondo::after {
   content: "";
@@ -527,22 +527,19 @@ main { position: relative; z-index: 2; }
 }
 
 .hero__fondo { position: absolute; inset: 0; }
-.hero__flores { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.85; }
 .hero__fondo::before {
   content: "";
   position: absolute; inset: 0;
   background-image: url("assets/images/fondos/portada.jpg");
   background-size: cover; background-position: center;
-  filter: sepia(0.45) saturate(0.75) brightness(0.7);
+  filter: brightness(0.82);
   z-index: 1;
 }
+/* Velo que oscurece el centro para que los nombres se lean siempre */
 .hero__fondo::after {
   content: "";
   position: absolute; inset: 0; z-index: 2;
-  background:
-    radial-gradient(110% 85% at 50% 45%, rgba(30, 22, 16, 0.25) 30%, rgba(24, 17, 12, 0.8)),
-    var(--grano);
-  opacity: 0.96;
+  background: radial-gradient(115% 80% at 50% 45%, rgba(28, 20, 14, 0.62) 25%, rgba(22, 15, 10, 0.86));
 }
 
 .hero__contenido { position: relative; z-index: 3; max-width: 760px; display: grid; justify-items: center; }
@@ -876,8 +873,8 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
   position: absolute; inset: 0;
   background-image: url("assets/images/fondos/versiculo.jpg");
   background-size: cover; background-position: center;
-  filter: saturate(0.6) brightness(0.75);
-  opacity: 0.32;
+  filter: saturate(0.85) brightness(0.9);
+  opacity: 0.55;
 }
 .versiculo__fondo::after {
   content: "";
@@ -930,8 +927,8 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
   position: absolute; inset: 0;
   background-image: url("assets/images/fondos/cierre.jpg");
   background-size: cover; background-position: center;
-  filter: saturate(0.55) brightness(0.6);
-  opacity: 0.28;
+  filter: saturate(0.8) brightness(0.85);
+  opacity: 0.5;
 }
 .cierre__fondo::after {
   content: "";

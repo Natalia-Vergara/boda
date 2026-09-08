@@ -1,16 +1,35 @@
-FONDOS FOTOGRÁFICOS
-===================
-Guardar acá las fotos elegidas con estos nombres exactos (JPG, ideal
-ancho 1200-1600px, calidad 80). El sitio las toma automáticamente;
-mientras no existan se ve un fondo tonal elegante de respaldo.
+FONDOS FOTOGRÁFICOS DE LA INVITACIÓN
+====================================
 
-  sobre.jpg      → detrás del sobre cerrado (se muestra en blanco y negro)
-  portada.jpg    → portada con los nombres (se le aplica tono sepia)
-  versiculo.jpg  → interludio de 1 Corintios 13:13 (velo bordó encima)
-  cierre.jpg     → despedida final (velo bordó oscuro encima)
+Estas cuatro imágenes son los fondos del sitio. Se pueden reemplazar por
+fotos reales en cualquier momento: alcanza con guardar la foto nueva con
+el MISMO nombre de archivo, en esta misma carpeta. No hay que tocar código.
 
-Sugerencia con las fotos elegidas:
-  sobre.jpg     = las copas brindando (b/n)
-  portada.jpg   = las flores sepia
-  versiculo.jpg = las rosas blancas desenfocadas
-  cierre.jpg    = el vestido con el ramo y los zapatos
+  sobre.jpg      → detrás del sobre de apertura.
+                   Se muestra en blanco y negro y bastante oscurecida.
+                   Ideal: una foto de ambiente (brindis, luces, la pareja
+                   caminando). No importa el detalle: se ve muy difuminada.
+
+  portada.jpg    → detrás de "Nati & Lean" en la portada.
+                   Se oscurece en el centro para que los nombres se lean.
+                   Ideal: flores, o una foto de la pareja en plano general.
+
+  versiculo.jpg  → detrás de "1 Corintios 13:13" (franja bordó).
+                   Ideal: flores blancas, un ramo, detalles.
+
+  cierre.jpg     → detrás de la despedida, al final de todo.
+                   Ideal: una foto cálida de los dos, o el ramo.
+
+RECOMENDACIONES
+---------------
+- Formato vertical, mínimo 1000 x 1500 px.
+- Guardar como .jpg con calidad 80-85: cada archivo debería pesar menos de
+  400 KB para que la invitación cargue rápido en el celular.
+- Las fotos se ven detrás de textos, así que conviene que no tengan
+  elementos importantes justo en el centro.
+- Si una foto queda muy clara u oscura al probarla, se puede ajustar el
+  brillo y la opacidad en style.css (buscar "fondos/" para encontrarlas).
+
+Las imágenes actuales fueron generadas a medida para el sitio (flores
+desenfocadas y luces fuera de foco) y sirven perfectamente hasta que haya
+fotos propias.

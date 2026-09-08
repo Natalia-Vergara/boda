@@ -168,29 +168,8 @@
          PORTADA — se revela al abrir el sobre
          ============================================================ -->
     <header class="hero" id="inicio">
-      <!-- Fondo fotográfico sepia: colocar la foto en assets/images/fondos/portada.jpg.
-           Mientras no exista, se ve la composición sepia de respaldo (flores desenfocadas). -->
-      <div class="hero__fondo" aria-hidden="true">
-        <svg class="hero__flores" viewBox="0 0 400 620" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <filter id="desenfoque" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="16"/>
-            </filter>
-          </defs>
-          <g filter="url(#desenfoque)">
-            <!-- Tallos y copas desenfocadas, como flores fuera de foco -->
-            <rect x="128" y="180" width="7" height="440" rx="3" fill="#8A7A62" opacity="0.55"/>
-            <rect x="252" y="120" width="7" height="500" rx="3" fill="#8A7A62" opacity="0.5"/>
-            <rect x="330" y="200" width="6" height="420" rx="3" fill="#7C6C55" opacity="0.45"/>
-            <path d="M110 190 Q131 130 152 190 Q131 176 110 190 Z" fill="#D8C6A8" opacity="0.75"/>
-            <path d="M232 130 Q253 66 274 130 Q253 114 232 130 Z" fill="#E2D2B4" opacity="0.8"/>
-            <path d="M312 210 Q331 152 350 210 Q331 196 312 210 Z" fill="#C9B693" opacity="0.6"/>
-            <ellipse cx="60" cy="420" rx="90" ry="150" fill="#5C4E3D" opacity="0.5"/>
-            <ellipse cx="380" cy="120" rx="110" ry="130" fill="#4E4234" opacity="0.55"/>
-            <ellipse cx="205" cy="560" rx="160" ry="90" fill="#57493A" opacity="0.4"/>
-          </g>
-        </svg>
-      </div>
+      <!-- Fondo fotográfico sepia (assets/images/fondos/portada.jpg) -->
+      <div class="hero__fondo" aria-hidden="true"></div>
 
       <div class="hero__contenido">
         <p class="hero__iniciales" id="heroIniciales" aria-hidden="true">N <span>&amp;</span> L</p>
