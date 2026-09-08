@@ -3,10 +3,10 @@
   "short_name": "Nati & Lean",
   "description": "Invitación a nuestra boda · 27 de noviembre · Finca La Josefina, Berisso",
   "lang": "es-AR",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#350A15",
-  "theme_color": "#4A0F1E",
+  "background_color": "#FBF8F2",
+  "theme_color": "#FBF8F2",
   "icons": [
     {
       "src": "assets/icons/favicon.svg",
