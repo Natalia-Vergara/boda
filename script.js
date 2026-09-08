@@ -1,5 +1,5 @@
 /* ============================================================
-   NATI & LEAN — Invitación de Boda
+   LEAN & NATI — Invitación de Boda
    JavaScript Vanilla + GSAP + Lenis
    ------------------------------------------------------------
    Índice
@@ -260,7 +260,7 @@ function iniciarInvitado() {
   rsvpPases.innerHTML = `Tu invitación es válida por <strong>${textoPases}</strong>.`;
   rsvpPases.hidden = false;
 
-  const mensaje = `Hola! Soy ${invitado.nombre}. Quiero confirmar mi asistencia a la boda de Nati & Lean 🎉 (${textoPases})`;
+  const mensaje = `Hola! Soy ${invitado.nombre}. Quiero confirmar mi asistencia a la boda de Lean & Nati 🎉 (${textoPases})`;
   $('#btnWhatsapp').href = `https://wa.me/542215864142?text=${encodeURIComponent(mensaje)}`;
 }
 
@@ -472,7 +472,7 @@ function iniciarCanciones() {
 
   const invitado = window.__invitado;
   const quien = invitado ? `Soy ${invitado.nombre}. ` : '';
-  const mensaje = `Hola! ${quien}Esta canción no puede faltar en la fiesta de Nati & Lean 🎶: `;
+  const mensaje = `Hola! ${quien}Esta canción no puede faltar en la fiesta de Lean & Nati 🎶: `;
   boton.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensaje)}`;
 }
 

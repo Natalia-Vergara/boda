@@ -1,4 +1,4 @@
-# Nati & Lean — Invitación de Boda 💍
+# Lean & Nati — Invitación de Boda 💍
 
 Invitación digital de lujo, completamente responsive (mobile-first), construida con **HTML5, CSS3 y JavaScript Vanilla** + **GSAP** y **Lenis** para las animaciones y el scroll suave. Sin frameworks pesados.
 
@@ -24,7 +24,7 @@ sin código ve la invitación genérica («Estás cordialmente invitado»).
 ## Secciones
 
 0. **Sobre** — a pantalla completa, con textura de papel y sello de lacre; muestra el nombre del invitado y se abre al tocar el sello (la carta asoma y aparece la portada).
-1. **Portada** — animación de entrada (N & L → Nati & Lean), promesa, «Nos casamos» y cuenta regresiva en tiempo real hasta el 27/11/2026.
+1. **Portada** — animación de entrada (L & N → Lean & Nati), promesa, «Nos casamos» y cuenta regresiva en tiempo real hasta el 27/11/2026.
 2. **Con inmensa alegría** — bienvenida.
 3. **Ceremonia & Celebración** — dirección completa, horarios (18:15 llegada / 18:30 puntual), botones **Ver mapa** (Google Maps) y **Fotos del lugar** (Instagram `@fincalajosefinaeventos`), más preview visual de la finca.
 4. **Dress code** — Formal, con los 5 colores a evitar (blanco, crema, beige, nude y bordó).
@@ -115,4 +115,4 @@ python3 -m http.server 8080
 
 ## Créditos
 
-Diseño y desarrollo a medida para Nati & Lean. Paleta inspirada en su moodboard: bordó profundo, vino, marfil, champagne y dorado — el bordó de las damas de honor como acento principal.
+Diseño y desarrollo a medida para Lean & Nati. Paleta inspirada en su moodboard: bordó profundo, vino, marfil, champagne y dorado — el bordó de las damas de honor como acento principal.
