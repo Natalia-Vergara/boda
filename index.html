@@ -13,7 +13,7 @@
   <meta name="description" content="Con inmensa alegría te invitamos a celebrar nuestra boda. 27 de noviembre · Finca La Josefina, Berisso. Confirmá tu asistencia.">
   <meta name="author" content="Nati & Lean">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#4A0F1E">
+  <meta name="theme-color" content="#FBF8F3">
   <link rel="canonical" href="https://natiylean.com/">
 
   <!-- ——— OpenGraph ——— -->
@@ -30,8 +30,8 @@
   <link rel="manifest" href="manifest.webmanifest">
 
   <!-- ——— Tipografías auto-hospedadas (rendimiento y fiabilidad) ——— -->
-  <link rel="preload" href="assets/fonts/cormorant-garamond-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/poppins-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/cormorant-garamond-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/great-vibes-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- ——— Estilos ——— -->
@@ -97,22 +97,66 @@
   <main id="contenido">
 
     <!-- ============================================================
-         HERO — portada cinematográfica a pantalla completa
+         SOBRE — escena de apertura a pantalla completa.
+         Muestra el nombre del invitado (link personalizado ?i=codigo,
+         ver invitados.js) y se abre al tocar el sello de lacre.
+         ============================================================ -->
+    <div class="escena" id="escenaSobre">
+      <div class="escena__interior">
+        <p class="escena__monograma" aria-hidden="true">N <span>&amp;</span> L</p>
+
+        <div class="sobre" id="sobre">
+          <span class="sobre__bolsillo" aria-hidden="true"></span>
+          <span class="sobre__lateral sobre__lateral--izq" aria-hidden="true"></span>
+          <span class="sobre__lateral sobre__lateral--der" aria-hidden="true"></span>
+          <!-- Carta que asoma al abrir -->
+          <span class="sobre__carta" aria-hidden="true"><i>Nati &amp; Lean</i></span>
+          <span class="sobre__solapa" aria-hidden="true"></span>
+
+          <button class="sobre__sello" id="btnAbrir" aria-label="Abrir la invitación" data-cursor="hover">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle cx="60" cy="60" r="57" fill="currentColor"/>
+              <circle cx="60" cy="60" r="57" fill="url(#lacreLuz)"/>
+              <circle cx="60" cy="60" r="45" fill="none" stroke="rgba(247,240,230,0.55)" stroke-width="1"/>
+              <circle cx="60" cy="60" r="41" fill="none" stroke="rgba(247,240,230,0.35)" stroke-width="0.7" stroke-dasharray="1.5 3.5"/>
+              <text x="60" y="70" text-anchor="middle" class="sobre__sello-letras">N&amp;L</text>
+              <defs>
+                <radialGradient id="lacreLuz" cx="0.35" cy="0.3" r="0.9">
+                  <stop offset="0" stop-color="rgba(255,255,255,0.28)"/>
+                  <stop offset="0.55" stop-color="rgba(255,255,255,0)"/>
+                  <stop offset="1" stop-color="rgba(0,0,0,0.28)"/>
+                </radialGradient>
+              </defs>
+            </svg>
+          </button>
+        </div>
+
+        <div class="escena__destinatario">
+          <p class="escena__nombre" id="invitadoNombre">Estás cordialmente invitado</p>
+          <p class="escena__pases" id="invitadoPases" hidden></p>
+        </div>
+
+        <p class="escena__ayuda">Tocá el sello para abrir</p>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         PORTADA — se revela al abrir el sobre
          ============================================================ -->
     <header class="hero" id="inicio">
-      <!-- Fondo: composición floral + gradiente bordó con parallax -->
-      <div class="hero__fondo" data-parallax="0.25">
-        <img src="assets/images/hero.svg" alt="" class="hero__imagen" fetchpriority="high">
-      </div>
-      <div class="hero__velo" id="heroVelo"></div>
-      <div class="hero__grano" aria-hidden="true"></div>
+      <!-- Ramas line-art en las esquinas -->
+      <svg class="hero__rama hero__rama--sup" viewBox="0 0 300 200" fill="none" aria-hidden="true">
+        <path d="M-10 10 Q80 30 120 90 Q150 140 140 200 M40 22 q18 26 8 48 M92 52 q26 10 34 38 M124 106 q30 4 44 30" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+        <path d="M40 22 q-20 14 -14 36 M92 52 q-8 26 8 44" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+        <circle cx="52" cy="70" r="3.2" fill="currentColor"/><circle cx="112" cy="96" r="2.6" fill="currentColor"/><circle cx="146" cy="150" r="2.2" fill="currentColor"/>
+      </svg>
+      <svg class="hero__rama hero__rama--inf" viewBox="0 0 300 200" fill="none" aria-hidden="true">
+        <path d="M-10 10 Q80 30 120 90 Q150 140 140 200 M40 22 q18 26 8 48 M92 52 q26 10 34 38 M124 106 q30 4 44 30" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+        <path d="M40 22 q-20 14 -14 36 M92 52 q-8 26 8 44" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
+        <circle cx="52" cy="70" r="3.2" fill="currentColor"/><circle cx="112" cy="96" r="2.6" fill="currentColor"/><circle cx="146" cy="150" r="2.2" fill="currentColor"/>
+      </svg>
 
       <div class="hero__contenido">
-        <svg class="hero__ornamento hero__ornamento--sup" viewBox="0 0 220 40" fill="none" aria-hidden="true">
-          <path class="trazo" d="M10 24 C50 6, 90 6, 110 22 C130 6, 170 6, 210 24" stroke="currentColor" stroke-width="0.9"/>
-          <circle class="trazo" cx="110" cy="24" r="2.4" stroke="currentColor" stroke-width="0.9"/>
-        </svg>
-
         <p class="hero__iniciales" id="heroIniciales" aria-hidden="true">N <span>&amp;</span> L</p>
         <h1 class="hero__nombres" id="heroNombres">Nati <span class="amp">&amp;</span> Lean</h1>
 
@@ -126,15 +170,6 @@
           <span class="hero__nos-casamos">Nos casamos</span>
           <span class="hero__dia">27 de noviembre</span>
         </div>
-
-        <button class="boton boton--dorado hero__abrir" id="btnAbrir" data-cursor="hover">
-          <span class="boton__texto">Abrir Invitación</span>
-          <span class="boton__brillo" aria-hidden="true"></span>
-        </button>
-
-        <svg class="hero__ornamento hero__ornamento--inf" viewBox="0 0 220 40" fill="none" aria-hidden="true">
-          <path class="trazo" d="M10 16 C50 34, 90 34, 110 18 C130 34, 170 34, 210 16" stroke="currentColor" stroke-width="0.9"/>
-        </svg>
       </div>
 
       <!-- Indicador de scroll -->
@@ -196,11 +231,10 @@
     <!-- ============================================================
          CEREMONIA — tarjeta con glassmorphism sutil
          ============================================================ -->
-    <section class="ceremonia seccion seccion--oscura" id="ceremonia">
-      <div class="ceremonia__fondo" data-parallax="0.18" aria-hidden="true"></div>
+    <section class="ceremonia seccion" id="ceremonia">
       <div class="contenedor">
-        <p class="etiqueta etiqueta--clara" data-anim="fade-up">El gran día</p>
-        <h2 class="titulo titulo--claro" data-anim="split">Ceremonia &amp; Celebración</h2>
+        <p class="etiqueta" data-anim="fade-up">El gran día</p>
+        <h2 class="titulo" data-anim="split">Ceremonia &amp; Celebración</h2>
 
         <article class="tarjeta-vidrio ceremonia__tarjeta" data-anim="zoom">
           <svg class="tarjeta-vidrio__sello" viewBox="0 0 60 60" fill="none" aria-hidden="true">
@@ -455,7 +489,7 @@
     <!-- ============================================================
          CONFIRMACIÓN DE ASISTENCIA — vía WhatsApp
          ============================================================ -->
-    <section class="rsvp seccion seccion--oscura" id="confirmacion">
+    <section class="rsvp seccion" id="confirmacion">
       <div class="contenedor contenedor--angosto">
         <!-- Sello decorativo -->
         <svg class="rsvp__sello" viewBox="0 0 90 90" fill="none" aria-hidden="true" data-anim="dibujo">
@@ -464,18 +498,19 @@
           <text x="45" y="52" text-anchor="middle" class="rsvp__sello-texto">N&amp;L</text>
         </svg>
 
-        <p class="etiqueta etiqueta--clara" data-anim="fade-up">Tu lugar te espera</p>
-        <h2 class="titulo titulo--claro" data-anim="split">Confirmación de asistencia</h2>
+        <p class="etiqueta" data-anim="fade-up">Tu lugar te espera</p>
+        <h2 class="titulo" data-anim="split">Confirmación de asistencia</h2>
 
-        <p class="parrafo parrafo--claro" data-anim="fade-up">
+        <p class="parrafo" data-anim="fade-up">
           Estamos muy emocionados de poder celebrar con ustedes uno de los días
           más importantes de nuestras vidas.
         </p>
-        <p class="parrafo parrafo--claro rsvp__fecha-limite" data-anim="fade-up" data-anim-delay="0.15">
+        <p class="parrafo rsvp__pases" id="rsvpPases" hidden data-anim="fade-up" data-anim-delay="0.1"></p>
+        <p class="parrafo rsvp__fecha-limite" data-anim="fade-up" data-anim-delay="0.15">
           Por favor confirmar asistencia antes del <strong>19 de octubre</strong>.
         </p>
 
-        <a class="boton boton--dorado rsvp__whatsapp" data-anim="zoom" data-anim-delay="0.25"
+        <a class="boton boton--vino rsvp__whatsapp" id="btnWhatsapp" data-anim="zoom" data-anim-delay="0.25"
            href="https://wa.me/542215864142?text=Hola!%20Quiero%20confirmar%20mi%20asistencia%20a%20la%20boda%20de%20Nati%20%26%20Lean%20%F0%9F%8E%89"
            target="_blank" rel="noopener" data-cursor="hover">
           <span class="boton__texto">Confirmar aquí</span>
@@ -514,6 +549,9 @@
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="assets/vendor/lenis.min.js" defer></script>
+
+  <!-- ——— Lista de invitados (links personalizados) ——— -->
+  <script src="invitados.js" defer></script>
 
   <!-- ——— Script principal ——— -->
   <script src="script.js" defer></script>

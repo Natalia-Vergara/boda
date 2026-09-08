@@ -6,8 +6,24 @@ Invitación digital de lujo, completamente responsive (mobile-first), construida
 
 ---
 
+## Links personalizados por invitado (sin base de datos)
+
+Cada invitado puede recibir un link único que muestra **su nombre y sus lugares
+reservados en el sobre**, y hace que el mensaje de WhatsApp de confirmación
+salga con su nombre:
+
+```
+https://TU-SITIO/?i=flia-perez
+```
+
+La lista vive en [`invitados.js`](invitados.js) — un objeto simple
+`codigo → { nombre, pases }`. Para agregar un invitado se copia una línea y se
+cambian los datos; no hace falta backend ni base de datos. Quien abre el sitio
+sin código ve la invitación genérica («Estás cordialmente invitado»).
+
 ## Secciones
 
+0. **Sobre** — a pantalla completa, con textura de papel y sello de lacre; muestra el nombre del invitado y se abre al tocar el sello (la carta asoma y aparece la portada).
 1. **Portada** — animación de entrada (N & L → Nati & Lean), promesa, «Nos casamos» y cuenta regresiva en tiempo real hasta el 27/11/2026.
 2. **Con inmensa alegría** — bienvenida.
 3. **Ceremonia & Celebración** — dirección completa, horarios (18:15 llegada / 18:30 puntual), botones **Ver mapa** (Google Maps) y **Fotos del lugar** (Instagram `@fincalajosefinaeventos`), más preview visual de la finca.
@@ -53,6 +69,7 @@ Para publicar: **GitHub Pages, Netlify, Vercel o Cloudflare Pages** (arrastrar l
 
 | Qué | Dónde |
 |---|---|
+| **Invitados y pases** | `invitados.js` (un renglón por invitado/familia) |
 | **Link del álbum compartido** | `CONFIG.urlAlbum` en `script.js` (pegar el link de Google Fotos) |
 | Fotos de la finca | Reemplazar `assets/images/finca/finca-01.svg` … `finca-03.svg` por fotos reales de `@fincalajosefinaeventos` en `.jpg/.webp` (actualizar las rutas en `index.html`). Ideal: WebP ≤ 200 KB por foto |
 | Música | Colocar el MP3 en `assets/music/cancion.mp3` |

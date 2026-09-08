@@ -9,8 +9,8 @@
    04. Scroll suave (Lenis) + barra de progreso
    05. Cursor personalizado
    06. Música (con memoria en localStorage)
-   07. Hero: secuencia cinematográfica de entrada
-   08. Abrir invitación
+   07. Invitado personalizado (?i=codigo → invitados.js)
+   08. Sobre: apertura + secuencia de entrada del hero
    09. Animaciones de scroll (fade, zoom, split, dibujo, parallax)
    10. Timeline animada
    11. Cuenta regresiva
@@ -57,6 +57,8 @@ document.documentElement.classList.remove('sin-js');
 
 /* Todo arranca cuando el DOM está listo (los scripts cargan con defer) */
 document.addEventListener('DOMContentLoaded', () => {
+  iniciarInvitado();
+
   // Plan B: si GSAP no cargó, la invitación sigue siendo usable sin animaciones
   if (typeof gsap === 'undefined') {
     document.documentElement.classList.add('sin-js');
@@ -67,9 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarCopiarAlias();
     $('#btnAbrir').addEventListener('click', () => {
       reproducirMusica();
-      document.body.dataset.estado = 'abierta';
-      btnMusica.classList.add('musica--visible');
-      $('#cuenta-regresiva').scrollIntoView({ behavior: 'smooth' });
+      const escena = $('#escenaSobre');
+      escena.classList.add('escena--abierta');
+      setTimeout(() => {
+        escena.classList.add('escena--fuera');
+        document.body.dataset.estado = 'abierta';
+        btnMusica.classList.add('musica--visible');
+      }, 1200);
     });
     return;
   }
@@ -80,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarPreloader();
   iniciarCursor();
   iniciarMusica();
-  iniciarHero();
-  iniciarAbrirInvitacion();
+  iniciarParallax();
+  iniciarSobre();
   iniciarAnimacionesScroll();
   iniciarTimeline();
   iniciarCuentaRegresiva();
@@ -94,13 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function iniciarPreloader() {
   const preloader = $('#preloader');
 
-  // Cuando la página terminó de cargar, el telón se levanta con elegancia
+  // Cuando la página terminó de cargar, el telón se levanta con elegancia.
+  // (La secuencia del hero arranca recién al abrir el sobre.)
   const salir = () => {
-    setTimeout(() => {
-      preloader.classList.add('preloader--fuera');
-      // Con el telón fuera, arranca la secuencia del hero
-      reproducirEntradaHero();
-    }, 900);
+    setTimeout(() => preloader.classList.add('preloader--fuera'), 700);
   };
 
   if (document.readyState === 'complete') salir();
@@ -204,20 +207,45 @@ function pausarMusica() {
   localStorage.setItem(CONFIG.claveMusica, 'pausada');
 }
 
-/* ————— 07. HERO: ENTRADA CINEMATOGRÁFICA ————— */
-function iniciarHero() {
-  // Parallax del fondo del hero y demás capas con data-parallax
+/* ————— 07. INVITADO PERSONALIZADO ————— */
+/**
+ * Lee el código del link (?i=codigo) y lo busca en window.INVITADOS
+ * (invitados.js). Con invitado: el sobre muestra su nombre y sus pases,
+ * el RSVP indica los lugares reservados y el WhatsApp sale con su nombre.
+ * Sin código (o con uno inexistente): invitación genérica.
+ */
+function iniciarInvitado() {
+  const codigo = new URLSearchParams(location.search).get('i');
+  const invitado = (window.INVITADOS || {})[codigo];
+  if (!invitado) return;
+
+  const pases = Number(invitado.pases) || 1;
+  const textoPases = pases === 1 ? '1 persona' : `${pases} personas`;
+
+  $('#invitadoNombre').textContent = invitado.nombre;
+  const pasesEl = $('#invitadoPases');
+  pasesEl.textContent = textoPases;
+  pasesEl.hidden = false;
+
+  const rsvpPases = $('#rsvpPases');
+  rsvpPases.innerHTML = `Tu invitación es válida por <strong>${textoPases}</strong>.`;
+  rsvpPases.hidden = false;
+
+  const mensaje = `Hola! Soy ${invitado.nombre}. Quiero confirmar mi asistencia a la boda de Nati & Lean 🎉 (${textoPases})`;
+  $('#btnWhatsapp').href = `https://wa.me/542215864142?text=${encodeURIComponent(mensaje)}`;
+}
+
+/* ————— 08. SOBRE: APERTURA + ENTRADA DEL HERO ————— */
+function iniciarParallax() {
+  // Marcas de agua y capas con data-parallax
   $$('[data-parallax]').forEach((capa) => {
-    const fuerza = parseFloat(capa.dataset.parallax) || 0.2;
     const seccion = capa.closest('section, header');
-    // El hero ya está en pantalla al cargar: su parallax arranca desde arriba
-    const esHero = seccion.classList.contains('hero');
     gsap.to(capa, {
-      yPercent: fuerza * 100,
+      yPercent: (parseFloat(capa.dataset.parallax) || 0.2) * 100,
       ease: 'none',
       scrollTrigger: {
         trigger: seccion,
-        start: esHero ? 'top top' : 'top bottom',
+        start: 'top bottom',
         end: 'bottom top',
         scrub: true,
       },
@@ -225,15 +253,44 @@ function iniciarHero() {
   });
 }
 
-/** Secuencia: iniciales → nombres → promesa → fecha → botón */
+function iniciarSobre() {
+  const escena = $('#escenaSobre');
+
+  $('#btnAbrir').addEventListener('click', () => {
+    // 1. Empieza la música (gesto del usuario: el navegador lo permite)
+    reproducirMusica();
+
+    // 2. La solapa se abre y la carta asoma (animaciones en CSS)
+    escena.classList.add('escena--abierta');
+
+    // 3. Terminada la apertura, la escena se disuelve y aparece el hero
+    setTimeout(() => {
+      escena.classList.add('escena--fuera');
+      document.body.dataset.estado = 'abierta';
+      btnMusica.classList.add('musica--visible');
+
+      if (lenis) lenis.resize();
+      ScrollTrigger.refresh();
+      reproducirEntradaHero();
+    }, 1350);
+  });
+}
+
+/** Secuencia del hero: ramas → iniciales → nombres → promesa → fecha */
 function reproducirEntradaHero() {
+  if (prefiereMenosMovimiento) return;
+
+  // Estados iniciales de la secuencia
+  gsap.set('#heroIniciales', { y: 24 });
+  gsap.set('#heroPromesa', { y: 30 });
+  gsap.set('#heroFecha', { y: 24 });
+
   const letras = dividirEnPalabras($('#heroNombres'));
 
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-  tl.to('.hero__ornamento--sup', { opacity: 1, duration: 1.6 })
-    .to('#heroIniciales', { opacity: 1, y: 0, duration: 2, ease: 'power2.out' }, '-=1.2')
-    .set('#heroNombres', { opacity: 1 }, '-=0.6')
+  gsap.timeline({ defaults: { ease: 'power3.out' } })
+    .to('.hero__rama', { opacity: 1, duration: 2.2, ease: 'power2.out' })
+    .to('#heroIniciales', { opacity: 1, y: 0, duration: 1.8, ease: 'power2.out' }, '-=1.8')
+    .set('#heroNombres', { opacity: 1 }, '-=0.7')
     .from(letras, {
       yPercent: 110,
       duration: 1.6,
@@ -241,36 +298,7 @@ function reproducirEntradaHero() {
       ease: 'power4.out',
     }, '<')
     .to('#heroPromesa', { opacity: 1, y: 0, duration: 1.8 }, '-=0.8')
-    .to('#heroFecha', { opacity: 1, y: 0, duration: 1.4 }, '-=1')
-    .to('#btnAbrir', { opacity: 1, scale: 1, duration: 1.2, ease: 'back.out(1.4)' }, '-=0.7')
-    .to('.hero__ornamento--inf', { opacity: 1, duration: 1.6 }, '-=1');
-
-  // Estados iniciales de la secuencia
-  gsap.set('#heroIniciales', { y: 24 });
-  gsap.set('#heroPromesa', { y: 30 });
-  gsap.set('#heroFecha', { y: 24 });
-  gsap.set('#btnAbrir', { scale: 0.9 });
-}
-
-/* ————— 08. ABRIR INVITACIÓN ————— */
-function iniciarAbrirInvitacion() {
-  $('#btnAbrir').addEventListener('click', () => {
-    // 1. Empieza la música (gesto del usuario: el navegador lo permite)
-    reproducirMusica();
-
-    // 2. Se libera el scroll y se aclara el velo (transición en CSS)
-    document.body.dataset.estado = 'abierta';
-
-    // 3. Aparecen los controles flotantes
-    btnMusica.classList.add('musica--visible');
-
-    // 4. Lenis necesita recalcular la altura ahora que el body creció
-    if (lenis) lenis.resize();
-    ScrollTrigger.refresh();
-
-    // 5. Viaje suave hacia la primera sección
-    setTimeout(() => irHacia($('#cuenta-regresiva')), 450);
-  });
+    .to('#heroFecha', { opacity: 1, y: 0, duration: 1.4 }, '-=1');
 }
 
 /* ————— 09. ANIMACIONES DE SCROLL ————— */
