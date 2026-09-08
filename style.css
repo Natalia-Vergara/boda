@@ -356,13 +356,14 @@ main { position: relative; z-index: 2; }
   position: absolute; inset: 0;
   background-image: url("assets/images/fondos/sobre.jpg");
   background-size: cover; background-position: center;
-  filter: grayscale(1) contrast(1.05);   /* blanco y negro, como la referencia */
-  opacity: 0.72;
+  filter: saturate(0.7) brightness(0.52);
+  opacity: 1;
 }
+/* Velo cálido: deja ver el ramo y sostiene el texto claro encima */
 .escena__fondo::after {
   content: "";
   position: absolute; inset: 0;
-  background: radial-gradient(120% 90% at 50% 45%, transparent 40%, rgba(15, 10, 8, 0.78));
+  background: radial-gradient(120% 95% at 50% 42%, rgba(26, 18, 14, 0.28) 35%, rgba(18, 12, 9, 0.82));
 }
 .escena--fuera { opacity: 0; visibility: hidden; pointer-events: none; }
 
@@ -532,14 +533,14 @@ main { position: relative; z-index: 2; }
   position: absolute; inset: 0;
   background-image: url("assets/images/fondos/portada.jpg");
   background-size: cover; background-position: center;
-  filter: brightness(0.82);
+  filter: saturate(0.85) brightness(0.72);
   z-index: 1;
 }
-/* Velo que oscurece el centro para que los nombres se lean siempre */
+/* Velo que sostiene los nombres sin tapar el vestido */
 .hero__fondo::after {
   content: "";
   position: absolute; inset: 0; z-index: 2;
-  background: radial-gradient(115% 80% at 50% 45%, rgba(28, 20, 14, 0.62) 25%, rgba(22, 15, 10, 0.86));
+  background: radial-gradient(115% 85% at 50% 45%, rgba(24, 20, 16, 0.42) 20%, rgba(18, 15, 12, 0.78));
 }
 
 .hero__contenido { position: relative; z-index: 3; max-width: 760px; display: grid; justify-items: center; }
@@ -802,12 +803,13 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
 .rsvp__nota {
   max-width: 52ch;
   margin: 2.4rem auto 0;
+  display: grid; gap: 0.9rem;
   font-family: var(--f-titulos); font-weight: 500;
   font-size: 0.98rem; line-height: 1.8;
   color: var(--tinta-suave);
   border: var(--borde-fino);
   border-radius: 4px;
-  padding: 1.1rem 1.5rem;
+  padding: 1.4rem 1.6rem;
   background: rgba(255, 255, 255, 0.5);
 }
 
@@ -873,8 +875,8 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
   position: absolute; inset: 0;
   background-image: url("assets/images/fondos/versiculo.jpg");
   background-size: cover; background-position: center;
-  filter: saturate(0.85) brightness(0.9);
-  opacity: 0.55;
+  filter: grayscale(0.85) brightness(0.62);
+  opacity: 0.5;
 }
 .versiculo__fondo::after {
   content: "";
@@ -927,8 +929,8 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
   position: absolute; inset: 0;
   background-image: url("assets/images/fondos/cierre.jpg");
   background-size: cover; background-position: center;
-  filter: saturate(0.8) brightness(0.85);
-  opacity: 0.5;
+  filter: grayscale(1) brightness(0.8);
+  opacity: 0.45;
 }
 .cierre__fondo::after {
   content: "";

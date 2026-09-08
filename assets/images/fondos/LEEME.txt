@@ -30,6 +30,12 @@ RECOMENDACIONES
 - Si una foto queda muy clara u oscura al probarla, se puede ajustar el
   brillo y la opacidad en style.css (buscar "fondos/" para encontrarlas).
 
-Las imágenes actuales fueron generadas a medida para el sitio (flores
-desenfocadas y luces fuera de foco) y sirven perfectamente hasta que haya
-fotos propias.
+Las imágenes actuales son las fotos elegidas por los novios:
+  sobre.jpg      → los anillos sobre el ramo de flores blancas
+  portada.jpg    → el vestido con encaje, el ramo y los zapatos
+  versiculo.jpg  → los zapatos y los anillos
+  cierre.jpg     → el brindis con las copas, en blanco y negro
+
+Fueron convertidas a .jpg y optimizadas (el sitio no lee .jfif ni .png en
+estos lugares, así que si se sube una foto con otra extensión hay que
+convertirla a .jpg antes, o pedirlo y se hace).
