@@ -53,17 +53,42 @@ boda/
    └─ icons/             → favicon.svg
 ```
 
-## Puesta en marcha
+## Publicar el sitio (GitHub Pages)
+
+La rama `main` tiene siempre la versión final. Para publicarla:
+
+1. En el repositorio, entrar a **Settings → Pages**.
+2. En *Source* elegir **Deploy from a branch**.
+3. Seleccionar la rama **`main`** y la carpeta **`/ (root)`**. Guardar.
+4. Al minuto el sitio queda en:
+   **https://natalia-vergara.github.io/boda/**
+
+Conviene además dejar `main` como rama principal del repositorio
+(**Settings → General → Default branch**), para que sea siempre la que se
+ve al entrar y no quede a la vista una versión vieja.
+
+Cada vez que se haga un cambio en `main`, el sitio se actualiza solo en
+un par de minutos.
+
+### Antes de mandar el link a los invitados
+
+- **Álbum de fotos**: mientras `CONFIG.urlAlbum` (en `script.js`) siga con
+  el valor de ejemplo, la sección *Fotos* no se muestra. Al pegar el link
+  real del álbum, aparece sola.
+- **Música**: el botón del reproductor sólo aparece si existe
+  `assets/music/cancion.mp3`. Sin ese archivo, no se ve ningún botón roto.
+- **Invitados**: `invitados.js` trae tres ejemplos. Reemplazarlos por los
+  invitados reales antes de repartir los links personalizados.
+
+## Probar en la computadora
 
 Es un sitio 100 % estático: basta con servir la carpeta.
 
 ```bash
-# Opción rápida para probar en local
 python3 -m http.server 8080
 # → http://localhost:8080
+# Con invitado:  http://localhost:8080/?i=flia-perez
 ```
-
-Para publicar: **GitHub Pages, Netlify, Vercel o Cloudflare Pages** (arrastrar la carpeta y listo).
 
 ## Personalización rápida
 
