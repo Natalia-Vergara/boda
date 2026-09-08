@@ -1,0 +1,16 @@
+FONDOS FOTOGRÁFICOS
+===================
+Guardar acá las fotos elegidas con estos nombres exactos (JPG, ideal
+ancho 1200-1600px, calidad 80). El sitio las toma automáticamente;
+mientras no existan se ve un fondo tonal elegante de respaldo.
+
+  sobre.jpg      → detrás del sobre cerrado (se muestra en blanco y negro)
+  portada.jpg    → portada con los nombres (se le aplica tono sepia)
+  versiculo.jpg  → interludio de 1 Corintios 13:13 (velo bordó encima)
+  cierre.jpg     → despedida final (velo bordó oscuro encima)
+
+Sugerencia con las fotos elegidas:
+  sobre.jpg     = las copas brindando (b/n)
+  portada.jpg   = las flores sepia
+  versiculo.jpg = las rosas blancas desenfocadas
+  cierre.jpg    = el vestido con el ramo y los zapatos

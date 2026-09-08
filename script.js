@@ -89,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarParallax();
   iniciarSobre();
   iniciarAnimacionesScroll();
-  iniciarTimeline();
   iniciarCuentaRegresiva();
   iniciarAlbum();
   iniciarCopiarAlias();
@@ -288,8 +287,7 @@ function reproducirEntradaHero() {
   const letras = dividirEnPalabras($('#heroNombres'));
 
   gsap.timeline({ defaults: { ease: 'power3.out' } })
-    .to('.hero__rama', { opacity: 1, duration: 2.2, ease: 'power2.out' })
-    .to('#heroIniciales', { opacity: 1, y: 0, duration: 1.8, ease: 'power2.out' }, '-=1.8')
+    .to('#heroIniciales', { opacity: 1, y: 0, duration: 1.8, ease: 'power2.out' })
     .set('#heroNombres', { opacity: 1 }, '-=0.7')
     .from(letras, {
       yPercent: 110,
@@ -368,31 +366,7 @@ function iniciarAnimacionesScroll() {
         break;
       }
 
-      /* Hitos de la timeline: desde la izquierda */
-      case 'hito':
-        gsap.fromTo(el,
-          { opacity: 0, x: -36 },
-          {
-            opacity: 1, x: 0, duration: 1.2, ease: 'power3.out',
-            scrollTrigger: { ...disparo, onEnter: () => el.classList.add('activo') },
-          });
-        break;
     }
-  });
-}
-
-/* ————— 10. TIMELINE: EL HILO DORADO CRECE CON EL SCROLL ————— */
-function iniciarTimeline() {
-  if (prefiereMenosMovimiento) return;
-  gsap.to('#ejeProgreso', {
-    scaleY: 1,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#lineaTiempo',
-      start: 'top 75%',
-      end: 'bottom 55%',
-      scrub: 0.6,
-    },
   });
 }
 

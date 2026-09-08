@@ -91,9 +91,9 @@
   src: url('montserrat-latin-600-normal.woff2') format('woff2');
 }
 
-/* ——— Great Vibes: caligrafía para nombres y frases ——— */
+/* ——— Pinyon Script: caligrafía copperplate para nombres y frases ——— */
 @font-face {
-  font-family: 'Great Vibes';
+  font-family: 'Pinyon Script';
   font-style: normal; font-weight: 400; font-display: swap;
-  src: url('great-vibes-latin-400-normal.woff2') format('woff2');
+  src: url('pinyon-script-latin-400-normal.woff2') format('woff2');
 }

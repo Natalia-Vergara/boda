@@ -31,7 +31,7 @@
 
   <!-- ——— Tipografías auto-hospedadas (rendimiento y fiabilidad) ——— -->
   <link rel="preload" href="assets/fonts/cormorant-garamond-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/great-vibes-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/pinyon-script-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/fonts.css">
 
   <!-- ——— Estilos ——— -->
@@ -102,6 +102,10 @@
          ver invitados.js) y se abre al tocar el sello de lacre.
          ============================================================ -->
     <div class="escena" id="escenaSobre">
+      <!-- Fondo fotográfico: colocar la foto en assets/images/fondos/sobre.jpg
+           (mientras no exista, se ve el fondo tonal elegante de respaldo) -->
+      <div class="escena__fondo" aria-hidden="true"></div>
+
       <div class="escena__interior">
         <p class="escena__monograma" aria-hidden="true">N <span>&amp;</span> L</p>
 
@@ -109,22 +113,42 @@
           <span class="sobre__bolsillo" aria-hidden="true"></span>
           <span class="sobre__lateral sobre__lateral--izq" aria-hidden="true"></span>
           <span class="sobre__lateral sobre__lateral--der" aria-hidden="true"></span>
-          <!-- Carta que asoma al abrir -->
-          <span class="sobre__carta" aria-hidden="true"><i>Nati &amp; Lean</i></span>
+          <!-- Carta con borde de puntilla que asoma al abrir -->
+          <span class="sobre__carta" aria-hidden="true">
+            <span class="sobre__puntilla"></span>
+            <i>Nati &amp; Lean</i>
+            <em>27 · 11 · 2026</em>
+          </span>
           <span class="sobre__solapa" aria-hidden="true"></span>
 
           <button class="sobre__sello" id="btnAbrir" aria-label="Abrir la invitación" data-cursor="hover">
             <svg viewBox="0 0 120 120" aria-hidden="true">
-              <circle cx="60" cy="60" r="57" fill="currentColor"/>
-              <circle cx="60" cy="60" r="57" fill="url(#lacreLuz)"/>
-              <circle cx="60" cy="60" r="45" fill="none" stroke="rgba(247,240,230,0.55)" stroke-width="1"/>
-              <circle cx="60" cy="60" r="41" fill="none" stroke="rgba(247,240,230,0.35)" stroke-width="0.7" stroke-dasharray="1.5 3.5"/>
-              <text x="60" y="70" text-anchor="middle" class="sobre__sello-letras">N&amp;L</text>
+              <!-- Lacre con borde irregular y relieve floral -->
+              <path fill="currentColor" d="M60 3c8 0 12 4 19 5s14-1 20 4 5 12 9 18 9 9 9 17-5 12-6 19 2 14-3 20-13 5-19 9-9 9-17 9-12-5-19-6-14 2-20-3-5-13-9-19-9-9-9-17 5-12 6-19-2-14 3-20 13-5 19-9 9-8 17-8Z"/>
+              <path fill="url(#lacreLuz)" d="M60 3c8 0 12 4 19 5s14-1 20 4 5 12 9 18 9 9 9 17-5 12-6 19 2 14-3 20-13 5-19 9-9 9-17 9-12-5-19-6-14 2-20-3-5-13-9-19-9-9-9-17 5-12 6-19-2-14 3-20 13-5 19-9 9-8 17-8Z"/>
+              <circle cx="60" cy="60" r="40" fill="none" stroke="rgba(30,5,10,0.35)" stroke-width="1.4"/>
+              <circle cx="60" cy="60" r="37" fill="none" stroke="rgba(247,235,225,0.28)" stroke-width="0.8"/>
+              <!-- Pétalos en relieve -->
+              <g fill="none" stroke="rgba(30,5,10,0.4)" stroke-width="1.3">
+                <ellipse cx="60" cy="34" rx="6" ry="11"/>
+                <ellipse cx="60" cy="86" rx="6" ry="11"/>
+                <ellipse cx="34" cy="60" rx="11" ry="6"/>
+                <ellipse cx="86" cy="60" rx="11" ry="6"/>
+                <ellipse cx="42" cy="42" rx="8" ry="8"/>
+                <ellipse cx="78" cy="42" rx="8" ry="8"/>
+                <ellipse cx="42" cy="78" rx="8" ry="8"/>
+                <ellipse cx="78" cy="78" rx="8" ry="8"/>
+              </g>
+              <g fill="none" stroke="rgba(247,235,225,0.22)" stroke-width="0.8">
+                <ellipse cx="59" cy="33" rx="6" ry="11"/>
+                <ellipse cx="41" cy="41" rx="8" ry="8"/>
+              </g>
+              <text x="60" y="67" text-anchor="middle" class="sobre__sello-letras">N&amp;L</text>
               <defs>
-                <radialGradient id="lacreLuz" cx="0.35" cy="0.3" r="0.9">
-                  <stop offset="0" stop-color="rgba(255,255,255,0.28)"/>
-                  <stop offset="0.55" stop-color="rgba(255,255,255,0)"/>
-                  <stop offset="1" stop-color="rgba(0,0,0,0.28)"/>
+                <radialGradient id="lacreLuz" cx="0.35" cy="0.28" r="0.95">
+                  <stop offset="0" stop-color="rgba(255,255,255,0.3)"/>
+                  <stop offset="0.5" stop-color="rgba(255,255,255,0)"/>
+                  <stop offset="1" stop-color="rgba(0,0,0,0.38)"/>
                 </radialGradient>
               </defs>
             </svg>
@@ -144,17 +168,29 @@
          PORTADA — se revela al abrir el sobre
          ============================================================ -->
     <header class="hero" id="inicio">
-      <!-- Ramas line-art en las esquinas -->
-      <svg class="hero__rama hero__rama--sup" viewBox="0 0 300 200" fill="none" aria-hidden="true">
-        <path d="M-10 10 Q80 30 120 90 Q150 140 140 200 M40 22 q18 26 8 48 M92 52 q26 10 34 38 M124 106 q30 4 44 30" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-        <path d="M40 22 q-20 14 -14 36 M92 52 q-8 26 8 44" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
-        <circle cx="52" cy="70" r="3.2" fill="currentColor"/><circle cx="112" cy="96" r="2.6" fill="currentColor"/><circle cx="146" cy="150" r="2.2" fill="currentColor"/>
-      </svg>
-      <svg class="hero__rama hero__rama--inf" viewBox="0 0 300 200" fill="none" aria-hidden="true">
-        <path d="M-10 10 Q80 30 120 90 Q150 140 140 200 M40 22 q18 26 8 48 M92 52 q26 10 34 38 M124 106 q30 4 44 30" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-        <path d="M40 22 q-20 14 -14 36 M92 52 q-8 26 8 44" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"/>
-        <circle cx="52" cy="70" r="3.2" fill="currentColor"/><circle cx="112" cy="96" r="2.6" fill="currentColor"/><circle cx="146" cy="150" r="2.2" fill="currentColor"/>
-      </svg>
+      <!-- Fondo fotográfico sepia: colocar la foto en assets/images/fondos/portada.jpg.
+           Mientras no exista, se ve la composición sepia de respaldo (flores desenfocadas). -->
+      <div class="hero__fondo" aria-hidden="true">
+        <svg class="hero__flores" viewBox="0 0 400 620" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <filter id="desenfoque" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="16"/>
+            </filter>
+          </defs>
+          <g filter="url(#desenfoque)">
+            <!-- Tallos y copas desenfocadas, como flores fuera de foco -->
+            <rect x="128" y="180" width="7" height="440" rx="3" fill="#8A7A62" opacity="0.55"/>
+            <rect x="252" y="120" width="7" height="500" rx="3" fill="#8A7A62" opacity="0.5"/>
+            <rect x="330" y="200" width="6" height="420" rx="3" fill="#7C6C55" opacity="0.45"/>
+            <path d="M110 190 Q131 130 152 190 Q131 176 110 190 Z" fill="#D8C6A8" opacity="0.75"/>
+            <path d="M232 130 Q253 66 274 130 Q253 114 232 130 Z" fill="#E2D2B4" opacity="0.8"/>
+            <path d="M312 210 Q331 152 350 210 Q331 196 312 210 Z" fill="#C9B693" opacity="0.6"/>
+            <ellipse cx="60" cy="420" rx="90" ry="150" fill="#5C4E3D" opacity="0.5"/>
+            <ellipse cx="380" cy="120" rx="110" ry="130" fill="#4E4234" opacity="0.55"/>
+            <ellipse cx="205" cy="560" rx="160" ry="90" fill="#57493A" opacity="0.4"/>
+          </g>
+        </svg>
+      </div>
 
       <div class="hero__contenido">
         <p class="hero__iniciales" id="heroIniciales" aria-hidden="true">N <span>&amp;</span> L</p>
@@ -225,6 +261,11 @@
         <p class="parrafo parrafo--acento" data-anim="fade-up" data-anim-delay="0.3">
           Será un honor celebrar junto a vos.
         </p>
+
+        <blockquote class="cita" data-anim="fade-up" data-anim-delay="0.4">
+          <p class="cita__texto">«Mejores son dos que uno... porque si cayeren, el uno levantará a su compañero.»</p>
+          <cite class="cita__fuente">Eclesiastés 4:9-10</cite>
+        </blockquote>
       </div>
     </section>
 
@@ -287,65 +328,6 @@
     </section>
 
     <!-- ============================================================
-         TIMELINE — momentos de la noche con línea vertical animada
-         ============================================================ -->
-    <section class="momentos seccion" id="momentos">
-      <div class="contenedor contenedor--angosto">
-        <p class="etiqueta" data-anim="fade-up">Paso a paso</p>
-        <h2 class="titulo" data-anim="split">Una noche para recordar</h2>
-
-        <ol class="linea-tiempo" id="lineaTiempo">
-          <span class="linea-tiempo__eje" aria-hidden="true"><i id="ejeProgreso"></i></span>
-
-          <li class="linea-tiempo__hito" data-anim="hito">
-            <span class="linea-tiempo__punto" aria-hidden="true"></span>
-            <div class="linea-tiempo__detalle">
-              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0V4Z" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 6H4.5a2.5 2.5 0 0 0 0 5H7M17 6h2.5a2.5 2.5 0 0 1 0 5H17" stroke="currentColor" stroke-width="1.1"/></svg>
-              <h3>Recepción</h3>
-              <p>Los recibimos con una copa para brindar por el reencuentro.</p>
-            </div>
-          </li>
-
-          <li class="linea-tiempo__hito" data-anim="hito">
-            <span class="linea-tiempo__punto" aria-hidden="true"></span>
-            <div class="linea-tiempo__detalle">
-              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="14" r="5" stroke="currentColor" stroke-width="1.1"/><circle cx="15" cy="14" r="5" stroke="currentColor" stroke-width="1.1"/><path d="M12 6.5 10.5 4.8 12 3l1.5 1.8L12 6.5Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
-              <h3>Ceremonia</h3>
-              <p>El momento más esperado: nuestro sí, para siempre.</p>
-            </div>
-          </li>
-
-          <li class="linea-tiempo__hito" data-anim="hito">
-            <span class="linea-tiempo__punto" aria-hidden="true"></span>
-            <div class="linea-tiempo__detalle">
-              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 3h8l-1 7a3 3 0 0 1-6 0L8 3ZM12 13v6m-3 2h6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <h3>Brindis</h3>
-              <p>Levantamos las copas para celebrar el comienzo.</p>
-            </div>
-          </li>
-
-          <li class="linea-tiempo__hito" data-anim="hito">
-            <span class="linea-tiempo__punto" aria-hidden="true"></span>
-            <div class="linea-tiempo__detalle">
-              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="13" r="7" stroke="currentColor" stroke-width="1.1"/><circle cx="12" cy="13" r="3.4" stroke="currentColor" stroke-width="1.1"/><path d="M9 3.5h6" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
-              <h3>Cena</h3>
-              <p>Una mesa compartida, como toda buena historia.</p>
-            </div>
-          </li>
-
-          <li class="linea-tiempo__hito" data-anim="hito">
-            <span class="linea-tiempo__punto" aria-hidden="true"></span>
-            <div class="linea-tiempo__detalle">
-              <svg class="linea-tiempo__icono" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v3m6.4-.4-2.1 2.1M21 12h-3M5.6 5.6l2.1 2.1M3 12h3m2 9 4-6 4 6H8Z" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <h3>Fiesta</h3>
-              <p>La pista es de todos. Bailamos hasta que el cuerpo diga basta.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ============================================================
          DRESS CODE — tarjeta premium con acentos bordó
          ============================================================ -->
     <section class="dresscode seccion" id="dresscode">
@@ -355,7 +337,7 @@
           <p class="etiqueta" data-anim="fade-up">Código de vestimenta</p>
           <h2 class="titulo" data-anim="split">Dress Code</h2>
 
-          <p class="dresscode__nivel" data-anim="fade-up">Formal</p>
+          <p class="dresscode__nivel" data-anim="fade-up">Elegante formal</p>
 
           <p class="parrafo parrafo--suave" data-anim="fade-up" data-anim-delay="0.15">
             Te pedimos evitar los siguientes colores:
@@ -372,6 +354,11 @@
           <p class="parrafo parrafo--acento dresscode__nota" data-anim="fade-up" data-anim-delay="0.35">
             El bordó es el color reservado para las damas de honor.
           </p>
+
+          <blockquote class="cita cita--compacta" data-anim="fade-up" data-anim-delay="0.45">
+            <p class="cita__texto">«Sobre todo, vístanse de amor, que es el vínculo perfecto.»</p>
+            <cite class="cita__fuente">Colosenses 3:14</cite>
+          </blockquote>
         </article>
       </div>
     </section>
@@ -449,15 +436,18 @@
          VERSÍCULO — interludio con fondo bordó profundo
          ============================================================ -->
     <section class="versiculo seccion seccion--oscura" id="versiculo">
+      <!-- Fondo fotográfico: colocar la foto en assets/images/fondos/versiculo.jpg -->
+      <div class="versiculo__fondo" aria-hidden="true"></div>
       <span class="versiculo__marca" aria-hidden="true" data-parallax="0.15">N&amp;L</span>
       <div class="contenedor contenedor--angosto">
         <svg class="florituras florituras--clara" viewBox="0 0 160 60" fill="none" aria-hidden="true" data-anim="dibujo">
           <path class="trazo" d="M20 30 H62 M98 30 H140 M80 14 l7 16 -7 16 -7 -16 7 -16 Z" stroke="currentColor" stroke-width="0.9" stroke-linejoin="round"/>
         </svg>
-        <h2 class="versiculo__cita" data-anim="split">Eclesiastés 4:9-12</h2>
-        <p class="versiculo__texto" data-anim="fade-up" data-anim-delay="0.25">
-          «Mejores son dos que uno, porque tienen mejor recompensa por su trabajo.»
+        <p class="versiculo__texto" data-anim="fade-up">
+          «Y ahora permanecen la fe, la esperanza y el amor, estos tres;
+          pero el mayor de ellos es el amor.»
         </p>
+        <h2 class="versiculo__cita" data-anim="fade-up" data-anim-delay="0.25">1 Corintios 13:13</h2>
       </div>
     </section>
 
@@ -528,6 +518,8 @@
          FOOTER — despedida
          ============================================================ -->
     <footer class="cierre seccion--oscura" id="cierre">
+      <!-- Fondo fotográfico: colocar la foto en assets/images/fondos/cierre.jpg -->
+      <div class="cierre__fondo" aria-hidden="true"></div>
       <div class="contenedor contenedor--angosto">
         <p class="cierre__iniciales" data-anim="fade-up" aria-hidden="true">N <span>&amp;</span> L</p>
         <p class="parrafo parrafo--claro" data-anim="fade-up" data-anim-delay="0.15">

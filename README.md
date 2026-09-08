@@ -70,6 +70,7 @@ Para publicar: **GitHub Pages, Netlify, Vercel o Cloudflare Pages** (arrastrar l
 | Qué | Dónde |
 |---|---|
 | **Invitados y pases** | `invitados.js` (un renglón por invitado/familia) |
+| **Fotos de fondo** (sobre, portada, versículo, cierre) | Guardarlas en `assets/images/fondos/` con los nombres que indica el `LEEME.txt` de esa carpeta |
 | **Link del álbum compartido** | `CONFIG.urlAlbum` en `script.js` (pegar el link de Google Fotos) |
 | Fotos de la finca | Reemplazar `assets/images/finca/finca-01.svg` … `finca-03.svg` por fotos reales de `@fincalajosefinaeventos` en `.jpg/.webp` (actualizar las rutas en `index.html`). Ideal: WebP ≤ 200 KB por foto |
 | Música | Colocar el MP3 en `assets/music/cancion.mp3` |
