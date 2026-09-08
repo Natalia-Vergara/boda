@@ -24,6 +24,8 @@
    16. Solo adultos
    17. Versículo (interludio bordó)
    18. Álbum compartido
+   18b. Menú
+   18c. Canciones
    19. Footer
    20. Accesibilidad y responsive
    ============================================================ */
@@ -431,7 +433,7 @@ main { position: relative; z-index: 2; }
   border-radius: 4px;
   box-shadow: 0 -10px 24px -14px rgba(0, 0, 0, 0.5);
   transform: translateY(4%);
-  transition: transform 1s var(--suave) 0.5s;
+  transition: transform 1.4s var(--suave) 1.1s;
 }
 /* Festón superior: puntilla hecha con medios círculos */
 .sobre__puntilla {
@@ -461,7 +463,7 @@ main { position: relative; z-index: 2; }
     radial-gradient(100% 120% at 50% -20%, rgba(255, 130, 150, 0.14), transparent 60%),
     linear-gradient(180deg, #6B1329 0%, #550D1D 75%, #47091A 100%);
   transform-origin: top center;
-  transition: transform 1.1s var(--suave) 0.15s, z-index 0s 0.7s;
+  transition: transform 1.6s var(--suave) 0.35s, z-index 0s 1s;
   backface-visibility: hidden;
 }
 .escena--abierta .sobre__solapa { transform: rotateX(180deg); z-index: 0; }
@@ -474,7 +476,7 @@ main { position: relative; z-index: 2; }
   width: clamp(84px, 24vw, 104px); height: clamp(84px, 24vw, 104px);
   color: #4E0A14;
   filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.45));
-  transition: transform 0.5s var(--suave), opacity 0.5s var(--suave);
+  transition: transform 0.6s var(--suave), opacity 0.6s var(--suave);
   animation: invitar 3s ease-in-out infinite;
 }
 .sobre__sello:hover { transform: scale(1.06); animation-play-state: paused; }
@@ -587,8 +589,8 @@ main { position: relative; z-index: 2; }
 }
 .hero__dia {
   font-family: var(--f-titulos);
-  font-size: clamp(1.25rem, 3.4vw, 1.9rem);
-  letter-spacing: 0.32em; text-indent: 0.32em;
+  font-size: clamp(0.95rem, 2.9vw, 1.7rem);
+  letter-spacing: 0.24em; text-indent: 0.24em;
   text-transform: uppercase;
   color: var(--marfil);
   border-top: 1px solid rgba(198, 173, 126, 0.5);
@@ -908,6 +910,75 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
   color: var(--dorado);
 }
 .album__boton { margin-top: 0.6rem; }
+
+/* ————— 18b. MENÚ ————— */
+.menu { background: var(--papel); }
+.menu__icono {
+  width: clamp(42px, 8vw, 52px);
+  margin: 0 auto 1.6rem; display: block;
+  color: var(--dorado);
+}
+
+.menu__grupos {
+  display: grid; gap: 2.4rem;
+  max-width: 560px; margin: 1rem auto 0;
+}
+.menu__grupo { display: grid; gap: 1rem; }
+.menu__tiempo {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: clamp(0.78rem, 2.4vw, 0.9rem);
+  letter-spacing: 0.36em; text-indent: 0.36em;
+  text-transform: uppercase;
+  color: var(--bordo);
+  position: relative;
+  padding-bottom: 0.9rem;
+}
+/* Filete dorado bajo cada tiempo del menú */
+.menu__tiempo::after {
+  content: "";
+  position: absolute; left: 50%; bottom: 0;
+  translate: -50%;
+  width: 54px; height: 1px;
+  background: rgba(169, 139, 84, 0.6);
+}
+.menu__lista { list-style: none; display: grid; gap: 0.7rem; }
+.menu__lista li {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: clamp(1.02rem, 1.7vw, 1.14rem);
+  line-height: 1.6;
+  color: var(--tinta-suave);
+  text-wrap: balance;
+}
+
+/* Aviso sobre menús especiales */
+.menu__nota {
+  max-width: 52ch;
+  margin: 3rem auto 0;
+  display: grid; gap: 0.7rem;
+  border: var(--borde-fino);
+  border-radius: 5px;
+  padding: 1.6rem 1.6rem 1.7rem;
+  background: rgba(255, 255, 255, 0.55);
+}
+.menu__nota-titulo {
+  font-family: var(--f-cursiva); font-style: italic; font-weight: 400;
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  color: var(--bordo);
+}
+.menu__nota p {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: 1rem; line-height: 1.8;
+  color: var(--tinta-suave);
+}
+
+/* ————— 18c. CANCIONES ————— */
+.canciones { background: var(--papel-suave); }
+.canciones__icono {
+  width: clamp(44px, 8.5vw, 54px);
+  margin: 0 auto 1.6rem; display: block;
+  color: var(--dorado);
+}
+.canciones__boton { margin-top: 0.6rem; }
 
 /* ————— 19. FOOTER ————— */
 /* La foto va en assets/images/fondos/cierre.jpg (con velo bordó oscuro). */

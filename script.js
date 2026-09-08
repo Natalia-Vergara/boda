@@ -14,6 +14,7 @@
    09. Animaciones de scroll (fade, zoom, split, dibujo, parallax)
    10. Cuenta regresiva
    10b. Fotos del lugar (opcionales)
+   10c. Sugerir canciones
    11. Álbum compartido (link configurable)
    12. Copiar alias (uno por cada novio)
    13. Botón volver arriba
@@ -29,6 +30,13 @@ const CONFIG = {
   // Link del álbum compartido (Google Fotos u otro).
   // Reemplazar por la URL real, p. ej.: 'https://photos.app.goo.gl/XXXXXXXX'
   urlAlbum: 'https://photos.app.goo.gl/CAMBIAR-POR-EL-LINK-DEL-ALBUM',
+
+  // Formulario para sugerir canciones (por ejemplo un Google Forms).
+  // Si se deja vacío, el botón abre WhatsApp con el mensaje ya escrito.
+  urlCanciones: '',
+
+  // WhatsApp de los novios, usado por el botón de canciones
+  whatsapp: '542215864142',
 
   // Clave usada para recordar el estado de la música entre visitas
   claveMusica: 'nyl-musica',
@@ -66,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarMusica();
     iniciarCuentaRegresiva();
     iniciarFotosFinca();
+    iniciarCanciones();
     iniciarAlbum();
     iniciarCopiarAlias();
     $('#btnAbrir').addEventListener('click', () => {
@@ -77,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.dataset.estado = 'abierta';
         invitacionAbierta = true;
         actualizarBotonMusica();
-      }, 1200);
+      }, 2900);
     });
     return;
   }
@@ -93,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarAnimacionesScroll();
   iniciarCuentaRegresiva();
   iniciarFotosFinca();
+  iniciarCanciones();
   iniciarAlbum();
   iniciarCopiarAlias();
   iniciarBotonArriba();
@@ -236,6 +246,8 @@ function iniciarInvitado() {
   const invitado = (window.INVITADOS || {})[codigo];
   if (!invitado) return;
 
+  window.__invitado = invitado;
+
   const pases = Number(invitado.pases) || 1;
   const textoPases = pases === 1 ? '1 persona' : `${pases} personas`;
 
@@ -280,7 +292,8 @@ function iniciarSobre() {
     // 2. La solapa se abre y la carta asoma (animaciones en CSS)
     escena.classList.add('escena--abierta');
 
-    // 3. Terminada la apertura, la escena se disuelve y aparece el hero
+    // 3. Terminada la apertura (ver los tiempos en style.css), la escena se
+    //    disuelve y aparece el hero
     setTimeout(() => {
       escena.classList.add('escena--fuera');
       document.body.dataset.estado = 'abierta';
@@ -290,7 +303,7 @@ function iniciarSobre() {
       if (lenis) lenis.resize();
       ScrollTrigger.refresh();
       reproducirEntradaHero();
-    }, 1350);
+    }, 2900);
   });
 }
 
@@ -440,6 +453,27 @@ function iniciarFotosFinca() {
     faltantes.filter(Boolean).forEach((fig) => fig.remove());
     if (!$('.ceremonia__foto', bloque)) bloque.remove();
   });
+}
+
+/* ————— 10c. SUGERIR CANCIONES ————— */
+/**
+ * Si hay un formulario configurado (CONFIG.urlCanciones), el botón lleva
+ * ahí. Si no, abre WhatsApp con el mensaje empezado, que funciona desde
+ * el primer día sin necesidad de crear nada.
+ */
+function iniciarCanciones() {
+  const boton = $('#btnCanciones');
+  if (!boton) return;
+
+  if (CONFIG.urlCanciones) {
+    boton.href = CONFIG.urlCanciones;
+    return;
+  }
+
+  const invitado = window.__invitado;
+  const quien = invitado ? `Soy ${invitado.nombre}. ` : '';
+  const mensaje = `Hola! ${quien}Esta canción no puede faltar en la fiesta de Nati & Lean 🎶: `;
+  boton.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensaje)}`;
 }
 
 /* ————— 11. ÁLBUM COMPARTIDO ————— */
