@@ -12,11 +12,10 @@
    07. Invitado personalizado (?i=codigo → invitados.js)
    08. Sobre: apertura + secuencia de entrada del hero
    09. Animaciones de scroll (fade, zoom, split, dibujo, parallax)
-   10. Timeline animada
-   11. Cuenta regresiva
-   12. Álbum compartido (link configurable)
-   13. Copiar alias (uno por cada novio)
-   14. Botón volver arriba
+   10. Cuenta regresiva
+   11. Álbum compartido (link configurable)
+   12. Copiar alias (uno por cada novio)
+   13. Botón volver arriba
    ============================================================ */
 
 'use strict';
@@ -74,7 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         escena.classList.add('escena--fuera');
         document.body.dataset.estado = 'abierta';
-        btnMusica.classList.add('musica--visible');
+        invitacionAbierta = true;
+        actualizarBotonMusica();
       }, 1200);
     });
     return;
@@ -172,7 +172,22 @@ function iniciarCursor() {
 const audio = $('#audioBoda');
 const btnMusica = $('#btnMusica');
 
+// El botón flotante sólo se muestra si hay canción cargada Y la invitación
+// ya está abierta. Así, mientras no exista assets/music/cancion.mp3, el
+// invitado no ve un botón que no hace nada.
+let hayMusica = false;
+let invitacionAbierta = false;
+
+function actualizarBotonMusica() {
+  btnMusica.classList.toggle('musica--visible', hayMusica && invitacionAbierta);
+}
+
 function iniciarMusica() {
+  // ¿Está subida la canción?
+  fetch(audio.getAttribute('src'), { method: 'HEAD' })
+    .then((r) => { hayMusica = r.ok; actualizarBotonMusica(); })
+    .catch(() => { hayMusica = false; });
+
   btnMusica.addEventListener('click', () => {
     if (audio.paused) reproducirMusica();
     else pausarMusica();
@@ -266,7 +281,8 @@ function iniciarSobre() {
     setTimeout(() => {
       escena.classList.add('escena--fuera');
       document.body.dataset.estado = 'abierta';
-      btnMusica.classList.add('musica--visible');
+      invitacionAbierta = true;
+      actualizarBotonMusica();
 
       if (lenis) lenis.resize();
       ScrollTrigger.refresh();
@@ -370,7 +386,7 @@ function iniciarAnimacionesScroll() {
   });
 }
 
-/* ————— 11. CUENTA REGRESIVA ————— */
+/* ————— 10. CUENTA REGRESIVA ————— */
 function iniciarCuentaRegresiva() {
   const refs = {
     dias: $('#cdDias'), horas: $('#cdHoras'),
@@ -399,13 +415,18 @@ function iniciarCuentaRegresiva() {
   setInterval(actualizar, 1000);
 }
 
-/* ————— 12. ÁLBUM COMPARTIDO ————— */
+/* ————— 11. ÁLBUM COMPARTIDO ————— */
 function iniciarAlbum() {
-  // El link vive en CONFIG.urlAlbum para poder cambiarlo sin tocar el HTML
+  // Mientras el álbum no esté creado, la sección entera se oculta:
+  // es preferible a mostrar un botón que lleva a un link roto.
+  if (!CONFIG.urlAlbum || CONFIG.urlAlbum.includes('CAMBIAR-POR')) {
+    $('#fotos').remove();
+    return;
+  }
   $('#btnAlbum').href = CONFIG.urlAlbum;
 }
 
-/* ————— 13. COPIAR ALIAS ————— */
+/* ————— 12. COPIAR ALIAS ————— */
 function iniciarCopiarAlias() {
   const aviso = $('#avisoCopia');
   let temporizador = null;
@@ -439,7 +460,7 @@ function iniciarCopiarAlias() {
   });
 }
 
-/* ————— 14. BOTÓN VOLVER ARRIBA ————— */
+/* ————— 13. BOTÓN VOLVER ARRIBA ————— */
 function iniciarBotonArriba() {
   const boton = $('#btnArriba');
 
