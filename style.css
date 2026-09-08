@@ -639,13 +639,6 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
   font-size: clamp(1.35rem, 3vw, 1.7rem); color: var(--tinta-suave);
 }
 
-/* Marca de agua gigante con parallax */
-.cuenta__marca {
-  position: absolute; inset-inline: 0; bottom: -0.28em; z-index: 0;
-  font-family: var(--f-titulos); font-size: clamp(8rem, 26vw, 20rem);
-  line-height: 1; text-align: center; color: var(--bordo);
-  opacity: 0.04; pointer-events: none; user-select: none;
-}
 .cuenta .contenedor { position: relative; z-index: 1; }
 
 /* ————— 10. INVITACIÓN ————— */

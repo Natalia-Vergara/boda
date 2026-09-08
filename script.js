@@ -13,6 +13,7 @@
    08. Sobre: apertura + secuencia de entrada del hero
    09. Animaciones de scroll (fade, zoom, split, dibujo, parallax)
    10. Cuenta regresiva
+   10b. Fotos del lugar (opcionales)
    11. Álbum compartido (link configurable)
    12. Copiar alias (uno por cada novio)
    13. Botón volver arriba
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('#preloader').classList.add('preloader--fuera');
     iniciarMusica();
     iniciarCuentaRegresiva();
+    iniciarFotosFinca();
     iniciarAlbum();
     iniciarCopiarAlias();
     $('#btnAbrir').addEventListener('click', () => {
@@ -90,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarSobre();
   iniciarAnimacionesScroll();
   iniciarCuentaRegresiva();
+  iniciarFotosFinca();
   iniciarAlbum();
   iniciarCopiarAlias();
   iniciarBotonArriba();
@@ -413,6 +416,30 @@ function iniciarCuentaRegresiva() {
 
   actualizar();
   setInterval(actualizar, 1000);
+}
+
+/* ————— 10b. FOTOS DEL LUGAR ————— */
+/**
+ * Las fotos de la finca son opcionales: si un archivo todavía no está
+ * subido, esa figura se quita, y si no hay ninguna, se oculta el bloque
+ * entero. Así nunca se ve el ícono de imagen rota.
+ */
+function iniciarFotosFinca() {
+  const bloque = $('.ceremonia__fotos');
+  if (!bloque) return;
+
+  // Se consulta cada archivo al cargar la página. No alcanza con esperar el
+  // evento "error" de la etiqueta: como las fotos son lazy, recién intentarían
+  // cargar al llegar con el scroll y el hueco se vería un instante.
+  const figuras = $$('.ceremonia__foto', bloque);
+  Promise.all(figuras.map((fig) =>
+    fetch($('img', fig).getAttribute('src'), { method: 'HEAD' })
+      .then((r) => (r.ok ? null : fig))
+      .catch(() => fig)
+  )).then((faltantes) => {
+    faltantes.filter(Boolean).forEach((fig) => fig.remove());
+    if (!$('.ceremonia__foto', bloque)) bloque.remove();
+  });
 }
 
 /* ————— 11. ÁLBUM COMPARTIDO ————— */
