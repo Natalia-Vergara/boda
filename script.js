@@ -17,6 +17,7 @@
    10c. Sugerir canciones
    11. Álbum compartido (link configurable)
    12. Copiar los datos de la cuenta
+   12b. Indicador de scroll
    13. Botón volver arriba
    ============================================================ */
 
@@ -105,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarCanciones();
   iniciarAlbum();
   iniciarCopiarAlias();
+  iniciarIndicadorScroll();
   iniciarBotonArriba();
 });
 
@@ -521,6 +523,18 @@ function iniciarCopiarAlias() {
       temporizador = setTimeout(() => aviso.classList.remove('brindis-copia--visible'), 2600);
     });
   });
+}
+
+/* ————— 12b. INDICADOR DE SCROLL ————— */
+function iniciarIndicadorScroll() {
+  const indicador = $('#heroScroll');
+  if (!indicador) return;
+
+  const revisar = () => {
+    indicador.classList.toggle('hero__scroll--oculto', window.scrollY > 120);
+  };
+  window.addEventListener('scroll', revisar, { passive: true });
+  revisar();
 }
 
 /* ————— 13. BOTÓN VOLVER ARRIBA ————— */
