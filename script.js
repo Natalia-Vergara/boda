@@ -481,7 +481,11 @@ function abrirVentana(id) {
     const campoNombre = $('input[name="nombre"]', ventana);
     if (campoNombre && !campoNombre.value) campoNombre.value = invitado.nombre;
     const campoPersonas = $('input[name="personas"]', ventana);
-    if (campoPersonas) campoPersonas.value = Number(invitado.pases) || 1;
+    if (campoPersonas) {
+      campoPersonas.value = Number(invitado.pases) || 1;
+      // Avisa al campo de barra libre, que no puede superar esa cantidad
+      campoPersonas.dispatchEvent(new Event('input', { bubbles: true }));
+    }
   }
 
   ventana.hidden = false;
@@ -517,8 +521,47 @@ function iniciarVentanas() {
     if (e.key === 'Escape' && ventanaAbierta) cerrarVentana();
   });
 
+  iniciarCampoBarra();
   conectarFormulario($('#formConfirmar'), 'confirmaciones', armarMensajeConfirmar);
   conectarFormulario($('#formCancion'), 'canciones', armarMensajeCancion);
+}
+
+/**
+ * Barra libre: se pregunta cuántos van a tomar alcohol, porque a cada uno
+ * se le entrega una pulsera. Sólo tiene sentido si el invitado viene, y
+ * nunca puede ser más gente que la que asiste.
+ */
+function iniciarCampoBarra() {
+  const form = $('#formConfirmar');
+  if (!form) return;
+
+  const campo = $('[data-campo-barra]', form);
+  const alcohol = $('input[name="alcohol"]', form);
+  const personas = $('input[name="personas"]', form);
+  if (!campo || !alcohol) return;
+
+  const limitar = () => {
+    const total = Number(personas && personas.value) || 1;
+    alcohol.max = String(total);
+    if (Number(alcohol.value) > total) alcohol.value = String(total);
+  };
+
+  const alternar = () => {
+    const elegida = $('input[name="asiste"]:checked', form);
+    const viene = !!elegida && elegida.value.startsWith('Sí');
+    campo.hidden = !viene;
+    alcohol.required = viene;
+    if (!viene) alcohol.value = '';
+  };
+
+  $$('input[name="asiste"]', form).forEach((r) => r.addEventListener('change', alternar));
+  if (personas) personas.addEventListener('input', limitar);
+  alcohol.addEventListener('input', limitar);
+  alternar();
+  limitar();
+
+  // El formulario se reutiliza: al reiniciarlo vuelve a su estado inicial
+  form.addEventListener('reset', () => setTimeout(() => { alternar(); limitar(); }, 0));
 }
 
 /** Texto que se manda por WhatsApp mientras no haya planilla conectada */
@@ -529,6 +572,12 @@ function armarMensajeConfirmar(datos) {
       ? `Confirmo mi asistencia al casamiento de Lean & Nati 🎉 (${datos.personas} ${datos.personas === '1' ? 'persona' : 'personas'})`
       : `Lamentablemente no voy a poder acompañarlos 💔`,
   ];
+  if (datos.asiste.startsWith('Sí')) {
+    const pulseras = Number(datos.alcohol) || 0;
+    partes.push(pulseras > 0
+      ? `Barra libre: ${pulseras} ${pulseras === 1 ? 'pulsera' : 'pulseras'}.`
+      : 'Barra libre: ninguno toma alcohol.');
+  }
   if (datos.nota) partes.push(`Aclaración: ${datos.nota}`);
   return partes.join(' ');
 }
@@ -569,6 +618,7 @@ function armarFila(tabla, datos) {
       asiste: datos.asiste,
       nombre: datos.nombre,
       personas: Number(datos.personas) || 1,
+      alcohol: Number(datos.alcohol) || 0,
       nota: datos.nota || null,
       invitado: invitado ? invitado.nombre : null,
       codigo,

@@ -1048,6 +1048,29 @@ body[data-estado="abierta"] .hero__scroll.hero__scroll--oculto { opacity: 0; }
   text-wrap: balance;
 }
 
+/* Barra libre: la pulsera se entrega a quien tome alcohol */
+.menu__barra {
+  max-width: 52ch;
+  margin: 3rem auto 0;
+  display: grid; gap: 0.7rem;
+  justify-items: center; text-align: center;
+  border: 1px solid rgba(97, 21, 42, 0.28);
+  border-radius: 5px;
+  padding: 1.8rem 1.6rem;
+  background: rgba(97, 21, 42, 0.045);
+}
+.menu__barra-icono {
+  width: 40px; height: 40px;
+  color: var(--bordo);
+  margin-bottom: 0.2rem;
+}
+.menu__barra p {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: 1rem; line-height: 1.8;
+  color: var(--tinta-suave);
+}
+.menu__barra strong { color: var(--bordo); font-weight: 600; }
+
 /* Aviso sobre menús especiales */
 .menu__nota {
   max-width: 52ch;
@@ -1197,6 +1220,7 @@ body[data-estado="abierta"] .hero__scroll.hero__scroll--oculto { opacity: 0; }
 
 /* Campos */
 .campo { display: grid; gap: 0.35rem; text-align: left; }
+.campo[hidden] { display: none; }
 .campo__etiqueta {
   font-family: var(--f-botones); font-size: 0.62rem; font-weight: 500;
   letter-spacing: 0.16em; text-transform: uppercase;

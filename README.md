@@ -107,6 +107,7 @@ create table confirmaciones (
   asiste     text not null,
   nombre     text not null,
   personas   int  not null default 1,
+  alcohol    int  not null default 0,   -- pulseras de barra libre
   nota       text,
   invitado   text,   -- nombre según la lista, si entró por su link
   codigo     text    -- código del link personalizado (?i=…)

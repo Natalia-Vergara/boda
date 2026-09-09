@@ -393,6 +393,22 @@
           </article>
         </div>
 
+        <div class="menu__barra" data-anim="fade-up" data-anim-delay="0.3">
+          <svg class="menu__barra-icono" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M10 13h28L24 28 10 13Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M24 28v11M17.5 40.5h13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M28.5 18.5 34.5 9" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+            <circle cx="27.5" cy="20" r="2" fill="var(--papel)" stroke="currentColor" stroke-width="1.1"/>
+          </svg>
+          <h3 class="menu__nota-titulo">Barra libre</h3>
+          <p>
+            La fiesta tiene barra libre. A cada persona que vaya a tomar alcohol
+            se le entrega una <strong>pulsera</strong> al llegar, así que
+            necesitamos saber cuántas preparar: al confirmar tu asistencia
+            contanos <strong>cuántos de los tuyos van a querer barra libre</strong>.
+          </p>
+        </div>
+
         <div class="menu__nota" data-anim="fade-up" data-anim-delay="0.3">
           <h3 class="menu__nota-titulo">¿Necesitás un menú especial?</h3>
           <p>
@@ -715,6 +731,11 @@
         <label class="campo">
           <span class="campo__etiqueta">¿Cuántas personas asisten?</span>
           <input class="campo__entrada" type="number" name="personas" min="1" max="20" value="1" inputmode="numeric">
+        </label>
+
+        <label class="campo" data-campo-barra>
+          <span class="campo__etiqueta">¿Cuántas van a querer barra libre? <em>(se les entrega una pulsera)</em></span>
+          <input class="campo__entrada" type="number" name="alcohol" min="0" max="20" placeholder="Ej.: 2" inputmode="numeric">
         </label>
 
         <label class="campo">
