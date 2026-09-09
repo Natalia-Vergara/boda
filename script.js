@@ -16,7 +16,7 @@
    10b. Fotos del lugar (opcionales)
    10c. Sugerir canciones
    11. Álbum compartido (link configurable)
-   12. Copiar alias (uno por cada novio)
+   12. Copiar los datos de la cuenta
    13. Botón volver arriba
    ============================================================ */
 
@@ -487,21 +487,22 @@ function iniciarAlbum() {
   $('#btnAlbum').href = CONFIG.urlAlbum;
 }
 
-/* ————— 12. COPIAR ALIAS ————— */
+/* ————— 12. COPIAR DATOS DE LA CUENTA ————— */
 function iniciarCopiarAlias() {
   const aviso = $('#avisoCopia');
   let temporizador = null;
 
-  $$('[data-alias]').forEach((boton) => {
+  $$('[data-copiar]').forEach((boton) => {
     boton.addEventListener('click', async () => {
-      const alias = boton.dataset.alias;
+      const valor = boton.dataset.copiar;
+      const nombre = boton.dataset.copiarNombre || 'Dato';
 
       try {
-        await navigator.clipboard.writeText(alias);
+        await navigator.clipboard.writeText(valor);
       } catch {
         // Fallback para contextos sin Clipboard API (http, navegadores viejos)
         const auxiliar = document.createElement('textarea');
-        auxiliar.value = alias;
+        auxiliar.value = valor;
         auxiliar.setAttribute('readonly', '');
         auxiliar.style.position = 'fixed';
         auxiliar.style.opacity = '0';
@@ -512,6 +513,7 @@ function iniciarCopiarAlias() {
       }
 
       // Animación de confirmación
+      aviso.textContent = `${nombre} copiado ❤️`;
       aviso.classList.add('brindis-copia--visible');
       if (window.gsap) gsap.fromTo(boton, { scale: 1 }, { scale: 0.94, yoyo: true, repeat: 1, duration: 0.16, ease: 'power2.inOut' });
 

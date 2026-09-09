@@ -810,25 +810,65 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
 
 /* ————— 15. REGALOS ————— */
 .regalos { background: var(--papel-suave); }
-.regalos__grilla {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1.4rem; max-width: 720px;
+/* Tarjeta única con los datos de la cuenta */
+.regalos__cuenta {
+  max-width: 460px;
   margin: 2.6rem auto 0;
-}
-.regalos__alias {
   background: rgba(255, 255, 255, 0.6);
   border: 1px dashed rgba(169, 139, 84, 0.55);
   border-radius: 5px;
-  padding: 2.2rem 1.4rem;
-  display: grid; justify-items: center; align-content: start; gap: 0.8rem;
+  padding: clamp(1.8rem, 5vw, 2.4rem) clamp(1.2rem, 4vw, 2rem);
+  display: grid; justify-items: center; gap: 1.5rem;
 }
-.regalos__alias-rotulo {
+.regalos__banco {
+  font-family: var(--f-botones); font-size: 0.6rem; font-weight: 500;
+  letter-spacing: 0.4em; text-indent: 0.4em; text-transform: uppercase;
+  color: var(--tinta-tenue);
+}
+
+.regalos__dato { display: grid; justify-items: center; gap: 0.55rem; width: 100%; }
+.regalos__rotulo {
   font-family: var(--f-botones); font-size: 0.6rem; font-weight: 500;
   letter-spacing: 0.4em; text-indent: 0.4em; text-transform: uppercase; color: var(--dorado);
 }
-.regalos__alias-valor {
-  font-family: var(--f-titulos); font-size: clamp(1.5rem, 4vw, 1.9rem);
+.regalos__valor {
+  font-family: var(--f-titulos); font-size: clamp(1.4rem, 4.6vw, 1.8rem);
   color: var(--bordo); letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+/* El CBU es largo: números tabulares y quiebre permitido en pantallas chicas */
+.regalos__valor--numero {
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  word-break: break-all;
+}
+.regalos__copiar { margin-top: 0.4rem; padding: 0.9rem 2.2rem; font-size: 0.66rem; }
+
+.regalos__separador {
+  width: 70%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(169, 139, 84, 0.45), transparent);
+}
+
+/* Datos secundarios: caja de ahorro, titular y CUIL */
+.regalos__ficha {
+  width: 100%;
+  display: grid; gap: 0.9rem;
+  margin-top: 0.4rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(169, 139, 84, 0.3);
+}
+.regalos__ficha > div { display: grid; gap: 0.15rem; }
+.regalos__ficha dt {
+  font-family: var(--f-botones); font-size: 0.56rem; font-weight: 500;
+  letter-spacing: 0.28em; text-indent: 0.28em; text-transform: uppercase;
+  color: var(--tinta-tenue);
+}
+.regalos__ficha dd {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: 1.02rem; line-height: 1.5;
+  color: var(--tinta-suave);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Aviso "Alias copiado" */
@@ -1047,7 +1087,6 @@ body[data-estado="abierta"] .hero__scroll { opacity: 0.85; }
   .cuenta__reloj { flex-wrap: wrap; row-gap: 1.4rem; }
   .cuenta__bloque { min-width: 38%; }
   .arriba { bottom: 5.4rem; right: 1.45rem; width: 42px; height: 42px; }
-  .regalos__grilla { grid-template-columns: 1fr; }
   .ceremonia__fotos { grid-template-columns: 1fr; max-width: 420px; }
   .ceremonia__acciones { flex-direction: column; align-items: stretch; width: 100%; }
 }

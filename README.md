@@ -28,7 +28,7 @@ sin código ve la invitación genérica («Estás cordialmente invitado»).
 2. **Con inmensa alegría** — bienvenida.
 3. **Ceremonia & Celebración** — dirección completa, horarios (18:15 llegada / 18:30 puntual), botones **Ver mapa** (Google Maps) y **Fotos del lugar** (Instagram `@fincalajosefinaeventos`), más preview visual de la finca.
 4. **Dress code** — Formal, con los 5 colores a evitar (blanco, crema, beige, nude y bordó).
-5. **Regalos** — dos alias (Nati y Lean), cada uno con su botón «Copiar Alias» (Clipboard API + fallback) y aviso «Alias copiado ❤️».
+5. **Regalos** — datos de la cuenta (Naranja X) con botones para copiar el alias y el CBU (Clipboard API + fallback) y aviso de confirmación.
 6. **Celebración sólo para adultos**.
 7. **Fotos** — link al álbum compartido del evento.
 8. **Confirmación de asistencia** — antes del **19 de octubre**, botón «Confirmar aquí» que abre WhatsApp con mensaje predefinido.
@@ -101,7 +101,7 @@ python3 -m http.server 8080
 | Música | Colocar el MP3 en `assets/music/cancion.mp3` |
 | Imagen del hero | Reemplazar `assets/images/hero.svg` por una foto (actualizar la ruta en `index.html`) |
 | Fecha de la cuenta regresiva | `CONFIG.fechaBoda` en `script.js` |
-| Alias de Mercado Pago | Sección *Regalos* en `index.html` (atributo `data-alias` y texto visible) |
+| Datos de la cuenta | Sección *Regalos* en `index.html`: el texto visible y el atributo `data-copiar` de cada botón deben coincidir |
 | Número / mensaje de WhatsApp del RSVP | Sección *Confirmación* en `index.html` (link `wa.me`) |
 | URL canónica / OpenGraph | `<head>` de `index.html` |
 
