@@ -80,6 +80,69 @@ un par de minutos.
 - **Invitados**: `invitados.js` trae tres ejemplos. Reemplazarlos por los
   invitados reales antes de repartir los links personalizados.
 
+## Base de datos (Supabase)
+
+Las confirmaciones y las sugerencias de canciones se guardan en una base
+PostgreSQL en Supabase, que tiene plan gratuito y no necesita servidor propio:
+el sitio escribe directamente en la base desde el navegador.
+
+Para conectarla, completar en `script.js` → `CONFIG.baseDeDatos`:
+
+```js
+baseDeDatos: {
+  url:   'https://xxxxxxxx.supabase.co',
+  clave: 'eyJhbGciOi…',   // clave anon (public)
+},
+```
+
+Mientras esos campos estén vacíos, los formularios abren WhatsApp con el
+mensaje ya escrito, así la invitación funciona igual sin base conectada.
+
+### Las tablas
+
+```sql
+create table confirmaciones (
+  id         bigint generated always as identity primary key,
+  creado_en  timestamptz not null default now(),
+  asiste     text not null,
+  nombre     text not null,
+  personas   int  not null default 1,
+  nota       text,
+  invitado   text,   -- nombre según la lista, si entró por su link
+  codigo     text    -- código del link personalizado (?i=…)
+);
+
+create table canciones (
+  id         bigint generated always as identity primary key,
+  creado_en  timestamptz not null default now(),
+  nombre     text not null,
+  cancion    text not null,
+  link       text,
+  codigo     text
+);
+```
+
+### Seguridad
+
+La clave `anon` es pública por diseño: viaja al navegador de cada invitado.
+Lo que protege los datos son las políticas de la base, que habilitan
+**únicamente insertar** filas:
+
+```sql
+alter table confirmaciones enable row level security;
+alter table canciones      enable row level security;
+
+create policy "cualquiera puede confirmar"
+  on confirmaciones for insert to anon with check (true);
+
+create policy "cualquiera puede sugerir"
+  on canciones for insert to anon with check (true);
+```
+
+Sin políticas de lectura, nadie puede consultar ni borrar las respuestas
+desde el sitio. Las confirmaciones se ven desde el panel de Supabase, que
+usa credenciales propias y permite exportar a CSV.
+
 ## Probar en la computadora
 
 Es un sitio 100 % estático: basta con servir la carpeta.

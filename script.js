@@ -35,22 +35,18 @@ const CONFIG = {
   // WhatsApp de los novios
   whatsapp: '542215864142',
 
-  /* Formularios en ventana.
-     Mientras 'url' esté vacía, al enviar se abre WhatsApp con el mensaje
-     ya escrito: funciona desde el primer día sin configurar nada.
-     Para que las respuestas caigan solas en una planilla, crear un
-     Google Forms y completar aquí su dirección de envío (la que termina
-     en /formResponse) y el identificador de cada campo (entry.123456).
-     El README explica cómo obtenerlos. */
-  formularios: {
-    confirmar: {
-      url: '',
-      campos: { asiste: '', nombre: '', personas: '', nota: '' },
-    },
-    cancion: {
-      url: '',
-      campos: { nombre: '', cancion: '', link: '' },
-    },
+  /* Base de datos (Supabase).
+     Mientras 'url' esté vacía, los formularios abren WhatsApp con el
+     mensaje ya escrito, así la invitación funciona igual sin configurar
+     nada. Al completar estos dos datos, las confirmaciones y las
+     canciones se guardan en la base. Ver README.md, sección «Base de datos».
+
+     La clave anónima está pensada para vivir en el navegador: lo que
+     protege los datos son las políticas de la base, que sólo permiten
+     insertar filas, nunca leerlas ni borrarlas. */
+  baseDeDatos: {
+    url: '',    // https://xxxxxxxx.supabase.co
+    clave: '',  // clave anon (public)
   },
 
   // Clave usada para recordar el estado de la música entre visitas
@@ -521,8 +517,8 @@ function iniciarVentanas() {
     if (e.key === 'Escape' && ventanaAbierta) cerrarVentana();
   });
 
-  conectarFormulario($('#formConfirmar'), 'confirmar', armarMensajeConfirmar);
-  conectarFormulario($('#formCancion'), 'cancion', armarMensajeCancion);
+  conectarFormulario($('#formConfirmar'), 'confirmaciones', armarMensajeConfirmar);
+  conectarFormulario($('#formCancion'), 'canciones', armarMensajeCancion);
 }
 
 /** Texto que se manda por WhatsApp mientras no haya planilla conectada */
@@ -543,7 +539,50 @@ function armarMensajeCancion(datos) {
   return texto;
 }
 
-function conectarFormulario(form, clave, armarMensaje) {
+/**
+ * Guarda una fila en la base. Supabase expone cada tabla como dirección
+ * web, así que alcanza con un envío normal; a diferencia de un formulario
+ * externo, acá sí sabemos si la fila entró y podemos avisar cuando falla.
+ */
+async function guardarEnBase(tabla, fila) {
+  const { url, clave } = CONFIG.baseDeDatos;
+  const respuesta = await fetch(`${url}/rest/v1/${tabla}`, {
+    method: 'POST',
+    headers: {
+      apikey: clave,
+      Authorization: `Bearer ${clave}`,
+      'Content-Type': 'application/json',
+      Prefer: 'return=minimal',
+    },
+    body: JSON.stringify(fila),
+  });
+  if (!respuesta.ok) throw new Error(`${respuesta.status} ${await respuesta.text()}`);
+}
+
+/** Arma la fila que se guarda, según la tabla */
+function armarFila(tabla, datos) {
+  const invitado = window.__invitado;
+  const codigo = new URLSearchParams(location.search).get('i') || null;
+
+  if (tabla === 'confirmaciones') {
+    return {
+      asiste: datos.asiste,
+      nombre: datos.nombre,
+      personas: Number(datos.personas) || 1,
+      nota: datos.nota || null,
+      invitado: invitado ? invitado.nombre : null,
+      codigo,
+    };
+  }
+  return {
+    nombre: datos.nombre,
+    cancion: datos.cancion,
+    link: datos.link || null,
+    codigo,
+  };
+}
+
+function conectarFormulario(form, tabla, armarMensaje) {
   if (!form) return;
   const estado = $('.modal__estado', form);
   const boton = $('.modal__enviar', form);
@@ -558,10 +597,9 @@ function conectarFormulario(form, clave, armarMensaje) {
     }
 
     const datos = Object.fromEntries(new FormData(form));
-    const config = CONFIG.formularios[clave];
 
-    // Sin planilla conectada: se abre WhatsApp con el mensaje escrito
-    if (!config.url) {
+    // Sin base conectada: se abre WhatsApp con el mensaje escrito
+    if (!CONFIG.baseDeDatos.url) {
       const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(armarMensaje(datos))}`;
       window.open(url, '_blank', 'noopener');
       estado.textContent = '¡Gracias! Te llevamos a WhatsApp para enviarlo.';
@@ -569,21 +607,19 @@ function conectarFormulario(form, clave, armarMensaje) {
       return;
     }
 
-    // Con planilla: la respuesta se guarda sola
     boton.disabled = true;
     estado.textContent = 'Enviando…';
     try {
-      const cuerpo = new FormData();
-      Object.entries(config.campos).forEach(([campo, id]) => {
-        if (id && datos[campo] !== undefined) cuerpo.append(id, datos[campo]);
-      });
-      // Google Forms no devuelve CORS: no-cors envía igual, sin leer respuesta
-      await fetch(config.url, { method: 'POST', mode: 'no-cors', body: cuerpo });
+      await guardarEnBase(tabla, armarFila(tabla, datos));
       estado.textContent = '¡Gracias! Recibimos tu respuesta ❤️';
       form.reset();
       setTimeout(cerrarVentana, 2200);
-    } catch {
-      estado.textContent = 'No pudimos enviarlo. Probá de nuevo en un momento.';
+    } catch (error) {
+      console.error('No se pudo guardar:', error);
+      // Si la base falla, el invitado no se queda sin poder avisar
+      estado.innerHTML = 'No pudimos guardarlo. ' +
+        `<a href="https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(armarMensaje(datos))}" ` +
+        'target="_blank" rel="noopener">Envialo por WhatsApp</a>.';
     } finally {
       boton.disabled = false;
     }
