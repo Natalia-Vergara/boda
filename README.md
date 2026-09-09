@@ -101,7 +101,8 @@ mensaje ya escrito, así la invitación funciona igual sin base conectada.
 ### Las tablas
 
 ```sql
-create table confirmaciones (
+-- Se puede correr las veces que haga falta: lo que ya existe, lo saltea.
+create table if not exists confirmaciones (
   id         bigint generated always as identity primary key,
   creado_en  timestamptz not null default now(),
   asiste     text not null,
@@ -113,7 +114,7 @@ create table confirmaciones (
   codigo     text    -- código del link personalizado (?i=…)
 );
 
-create table canciones (
+create table if not exists canciones (
   id         bigint generated always as identity primary key,
   creado_en  timestamptz not null default now(),
   nombre     text not null,
@@ -121,6 +122,9 @@ create table canciones (
   link       text,
   codigo     text
 );
+
+-- Por si la tabla se creó antes de que existiera la barra libre
+alter table confirmaciones add column if not exists alcohol int not null default 0;
 ```
 
 ### Seguridad
@@ -132,6 +136,9 @@ Lo que protege los datos son las políticas de la base, que habilitan
 ```sql
 alter table confirmaciones enable row level security;
 alter table canciones      enable row level security;
+
+drop policy if exists "cualquiera puede confirmar" on confirmaciones;
+drop policy if exists "cualquiera puede sugerir"   on canciones;
 
 create policy "cualquiera puede confirmar"
   on confirmaciones for insert to anon with check (true);
