@@ -65,6 +65,11 @@ const prefiereMenosMovimiento =
  * para poder animarlas individualmente (efecto "text split reveal").
  */
 function dividirEnPalabras(elemento) {
+  // Si el HTML ya trae las palabras marcadas (para conservar el «&» dorado
+  // o el respiro de la «i»), se usan tal cual en vez de rehacerlas.
+  const yaMarcadas = $$('.palabra > span', elemento);
+  if (yaMarcadas.length) return yaMarcadas;
+
   const palabras = elemento.textContent.trim().split(/\s+/);
   elemento.innerHTML = palabras
     .map((p) => `<span class="palabra"><span>${p}</span></span>`)
@@ -97,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.dataset.estado = 'abierta';
         invitacionAbierta = true;
         actualizarBotonMusica();
-      }, 5200);
+      }, 7000);
     });
     return;
   }
@@ -315,7 +320,7 @@ function iniciarSobre() {
       if (lenis) lenis.resize();
       ScrollTrigger.refresh();
       reproducirEntradaHero();
-    }, 5200);
+    }, 7000);
   });
 }
 
@@ -334,10 +339,11 @@ function reproducirEntradaHero() {
     .to('#heroIniciales', { opacity: 1, y: 0, duration: 1.8, ease: 'power2.out' })
     .set('#heroNombres', { opacity: 1 }, '-=0.7')
     .from(letras, {
-      yPercent: 110,
+      yPercent: 45,
+      opacity: 0,
       duration: 1.6,
       stagger: 0.12,
-      ease: 'power4.out',
+      ease: 'power3.out',
     }, '<')
     .to('#heroPromesa', { opacity: 1, y: 0, duration: 1.8 }, '-=0.8')
     .to('#heroFecha', { opacity: 1, y: 0, duration: 1.4 }, '-=1');
@@ -538,6 +544,7 @@ function iniciarCampoBarra() {
   const campo = $('[data-campo-barra]', form);
   const alcohol = $('input[name="alcohol"]', form);
   const personas = $('input[name="personas"]', form);
+  const campoPersonas = personas && personas.closest('.campo');
   if (!campo || !alcohol) return;
 
   const limitar = () => {
@@ -546,12 +553,15 @@ function iniciarCampoBarra() {
     if (Number(alcohol.value) > total) alcohol.value = String(total);
   };
 
+  // Quien no puede venir sólo completa nombre y comentario: preguntarle
+  // cuántos asisten o cuántas pulseras necesita no tiene sentido.
   const alternar = () => {
     const elegida = $('input[name="asiste"]:checked', form);
     const viene = !!elegida && elegida.value.startsWith('Sí');
     campo.hidden = !viene;
     alcohol.required = viene;
     if (!viene) alcohol.value = '';
+    if (campoPersonas) campoPersonas.hidden = !viene;
   };
 
   $$('input[name="asiste"]', form).forEach((r) => r.addEventListener('change', alternar));
@@ -614,11 +624,14 @@ function armarFila(tabla, datos) {
   const codigo = new URLSearchParams(location.search).get('i') || null;
 
   if (tabla === 'confirmaciones') {
+    // Si no asiste, los campos de cantidad quedan ocultos: se guardan en cero
+    // para que la planilla no muestre un «1» que nadie escribió.
+    const viene = datos.asiste.startsWith('Sí');
     return {
       asiste: datos.asiste,
       nombre: datos.nombre,
-      personas: Number(datos.personas) || 1,
-      alcohol: Number(datos.alcohol) || 0,
+      personas: viene ? (Number(datos.personas) || 1) : 0,
+      alcohol: viene ? (Number(datos.alcohol) || 0) : 0,
       nota: datos.nota || null,
       invitado: invitado ? invitado.nombre : null,
       codigo,

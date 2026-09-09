@@ -23,15 +23,15 @@ sin código ve la invitación genérica («Estás cordialmente invitado»).
 
 ## Secciones
 
-0. **Sobre** — a pantalla completa, bordó aterciopelado con filete dorado y sello de lacre; muestra el nombre del invitado y sus lugares. Al tocar el sello, el lacre se despega, la solapa gira y la carta —«Lean & Nati · nos casamos · 27 · 11 · 2026»— sale despacio; recién a los 5,2 s la escena se disuelve en la portada.
+0. **Sobre** — a pantalla completa, bordó aterciopelado con filete dorado y sello de lacre; muestra el nombre del invitado y sus lugares. Al tocar el sello, el lacre se despega, la solapa gira y la carta —«Lean & Nati · nos casamos · save the date · 27 · 11 · 2026»— sale despacio; recién a los 7 s la escena se disuelve en la portada.
 1. **Portada** — animación de entrada (L & N → Lean & Nati), promesa, «Nos casamos» y cuenta regresiva en tiempo real hasta el 27/11/2026.
 2. **Con inmensa alegría** — bienvenida.
 3. **Ceremonia & Celebración** — dirección completa, horarios (18:15 llegada / 18:30 puntual), botones **Ver mapa** (Google Maps) y **Fotos del lugar** (Instagram `@fincalajosefinaeventos`), más cuatro fotos reales de la finca.
-4. **Dress code** — Formal, con los 5 colores a evitar (blanco, crema, beige, nude y bordó).
+4. **Dress code** — Formal, con los 5 colores a evitar (blanco, crema, beige, nude y bordo).
 5. **Regalos** — datos de la cuenta (Naranja X) con botones para copiar el alias y el CBU (Clipboard API + fallback) y aviso de confirmación.
 6. **Celebración sólo para adultos**.
 7. **Fotos** — link al álbum compartido del evento.
-8. **Confirmación de asistencia** — antes del **19 de octubre**, botón «Confirmar aquí» que abre WhatsApp con mensaje predefinido.
+8. **Confirmación de asistencia** — antes del **25 de octubre**, botón «Confirmar aquí» que abre WhatsApp con mensaje predefinido.
 9. **Cierre** — despedida con las iniciales.
 
 ## Estructura del proyecto
