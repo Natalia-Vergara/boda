@@ -46,7 +46,7 @@ const CONFIG = {
      insertar filas, nunca leerlas ni borrarlas. */
   baseDeDatos: {
     url: 'https://mjvhfvcpkrzpufrpklrv.supabase.co',
-    clave: '',  // clave anon (public) — Settings → API Keys
+    clave: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qdmhmdmNwa3J6cHVmcnBrbHJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg5MTc4NjksImV4cCI6MjEwNDQ5Mzg2OX0.r9gSC7MoNaAxQQo3oQtZmZXkMyOlYDJe6G1rphYhb50',
   },
 
   // Clave usada para recordar el estado de la música entre visitas
