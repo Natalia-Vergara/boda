@@ -13,7 +13,7 @@ reservados en el sobre**, y hace que el mensaje de WhatsApp de confirmación
 salga con su nombre:
 
 ```
-https://TU-SITIO/?i=flia-perez
+https://natalia-vergara.github.io/boda-lean-y-nati/?i=flia-perez
 ```
 
 La lista vive en [`invitados.js`](invitados.js) — un objeto simple
@@ -61,7 +61,7 @@ La rama `main` tiene siempre la versión final. Para publicarla:
 2. En *Source* elegir **Deploy from a branch**.
 3. Seleccionar la rama **`main`** y la carpeta **`/ (root)`**. Guardar.
 4. Al minuto el sitio queda en:
-   **https://natalia-vergara.github.io/boda/**
+   **https://natalia-vergara.github.io/boda-lean-y-nati/**
 
 Conviene además dejar `main` como rama principal del repositorio
 (**Settings → General → Default branch**), para que sea siempre la que se
