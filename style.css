@@ -63,6 +63,9 @@
   /* Ritmo y movimiento */
   --espacio-seccion: clamp(5.5rem, 13vh, 9rem);
   --suave: cubic-bezier(0.22, 1, 0.36, 1);
+  /* El sobre usa una curva sin arranque brusco: la carta sale despacio,
+     se ve moverse todo el recorrido y se frena al final. */
+  --sobre-curva: cubic-bezier(0.62, 0.02, 0.3, 1);
   --radio: 3px;
   --borde-fino: 1px solid rgba(169, 139, 84, 0.4);
   --sombra-suave: 0 24px 60px -30px rgba(61, 46, 42, 0.35);
@@ -411,16 +414,28 @@ main { position: relative; z-index: 2; }
   clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
   border-radius: 8px;
   background:
-    radial-gradient(120% 130% at 50% 115%, rgba(255, 120, 140, 0.16), transparent 55%),
-    linear-gradient(190deg, #5A0E1E 8%, #7C1830 55%, #8D1F3A 100%);
+    radial-gradient(120% 130% at 50% 118%, rgba(255, 120, 140, 0.13), transparent 52%),
+    linear-gradient(190deg, #4A0A17 6%, #661226 52%, #74182F 100%);
+  /* Sombra interior en la boca del sobre: da hondura al bolsillo */
+  box-shadow: inset 0 16px 26px -18px rgba(0, 0, 0, 0.95);
+  /* El drop-shadow sigue el recorte, así el filo de la V queda dorado */
+  filter: drop-shadow(0 -1px 0 rgba(198, 173, 126, 0.5));
+}
+/* Filete dorado grabado, como los sobres de papelería fina */
+.sobre__bolsillo::before {
+  content: "";
+  position: absolute; inset: 9px;
+  border: 1px solid rgba(198, 173, 126, 0.28);
+  border-radius: 4px;
+  pointer-events: none;
 }
 /* Solapas laterales: un paso más oscuras (pliegue interior) */
 .sobre__lateral {
   z-index: 2;
   border-radius: 8px;
-  background: linear-gradient(90deg, #4C0B18, #691428 60%);
+  background: linear-gradient(90deg, #3B0611, #57101F 60%);
 }
-.sobre__lateral--der { background: linear-gradient(270deg, #4C0B18, #691428 60%); }
+.sobre__lateral--der { background: linear-gradient(270deg, #3B0611, #57101F 60%); }
 .sobre__lateral--izq { clip-path: polygon(0 0, 55% 50%, 0 100%); }
 .sobre__lateral--der { clip-path: polygon(100% 0, 45% 50%, 100% 100%); }
 
@@ -429,32 +444,60 @@ main { position: relative; z-index: 2; }
   position: absolute; z-index: 1;
   left: 5%; right: 5%; top: 4%; bottom: 8%;
   display: grid; align-content: start; justify-items: center;
-  gap: 0.4rem;
-  padding-top: 14%;
-  background: linear-gradient(180deg, #FDFAF4, #F4ECDD);
+  gap: 0.3rem;
+  padding: 9% 8% 0;
+  background: linear-gradient(180deg, #FDFAF4, #F6EFE2 70%, #EFE5D3);
   border-radius: 4px;
-  box-shadow: 0 -10px 24px -14px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 -14px 30px -16px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(198, 173, 126, 0.22);
   transform: translateY(4%);
-  transition: transform 1.4s var(--suave) 1.1s;
+  transition: transform 2.1s var(--sobre-curva) 1.5s;
 }
 /* Festón superior: puntilla hecha con medios círculos */
 .sobre__puntilla {
-  position: absolute; left: 0; right: 0; top: -11px; height: 12px;
-  background: radial-gradient(circle 6px at 50% 100%, #FDFAF4 98%, transparent) left bottom / 16px 12px repeat-x;
+  position: absolute; left: 0; right: 0; top: -7px; height: 8px;
+  background: radial-gradient(circle 4px at 50% 100%, #FDFAF4 98%, transparent) left bottom / 11px 8px repeat-x;
 }
-.sobre__carta i {
-  font-family: var(--f-script); font-style: normal;
-  font-size: clamp(1.7rem, 5.5vw, 2.4rem);
-  line-height: 1.3;
+.sobre__carta-nombres {
+  font-family: var(--f-script);
+  font-size: clamp(1.9rem, 6.2vw, 2.7rem);
+  line-height: 1.15;
   color: var(--bordo);
 }
-.sobre__carta em {
-  font-family: var(--f-titulos); font-style: normal;
-  font-size: clamp(0.7rem, 2vw, 0.85rem);
-  letter-spacing: 0.4em; text-indent: 0.4em;
+.sobre__carta-nombres span { color: var(--dorado); }
+.sobre__carta-frase {
+  font-family: var(--f-titulos); font-style: italic;
+  font-size: clamp(0.85rem, 2.6vw, 1.05rem);
+  letter-spacing: 0.16em; text-indent: 0.16em;
+  color: rgba(61, 46, 42, 0.72);
+}
+/* Filete con rombo al centro, como en las tarjetas grabadas */
+.sobre__carta-filete {
+  width: 58%; height: 7px;
+  margin: 0.35rem 0 0.25rem;
+  background:
+    linear-gradient(90deg, transparent, rgba(169, 139, 84, 0.75) 22%, rgba(169, 139, 84, 0.75) 40%, transparent 42%),
+    linear-gradient(90deg, transparent 58%, rgba(169, 139, 84, 0.75) 60%, rgba(169, 139, 84, 0.75) 78%, transparent);
+  background-size: 100% 1px, 100% 1px;
+  background-position: 0 50%, 0 50%;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.sobre__carta-filete::after {
+  content: "";
+  position: absolute; left: 50%; top: 50%;
+  width: 5px; height: 5px;
+  translate: -50% -50%; rotate: 45deg;
+  background: var(--dorado);
+}
+.sobre__carta-fecha {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: clamp(0.68rem, 2vw, 0.82rem);
+  letter-spacing: 0.38em; text-indent: 0.38em;
   color: var(--dorado);
 }
-.escena--abierta .sobre__carta { transform: translateY(-48%); }
+.escena--abierta .sobre__carta { transform: translateY(-68%); }
 
 /* Solapa superior: la más oscura; gira hacia arriba al abrir */
 .sobre__solapa {
@@ -462,11 +505,12 @@ main { position: relative; z-index: 2; }
   clip-path: polygon(0 0, 100% 0, 50% 58%);
   border-radius: 8px 8px 0 0;
   background:
-    radial-gradient(100% 120% at 50% -20%, rgba(255, 130, 150, 0.14), transparent 60%),
-    linear-gradient(180deg, #6B1329 0%, #550D1D 75%, #47091A 100%);
+    radial-gradient(100% 120% at 50% -20%, rgba(255, 130, 150, 0.11), transparent 60%),
+    linear-gradient(180deg, #5B0F22 0%, #470916 75%, #3A0612 100%);
   transform-origin: top center;
-  transition: transform 1.6s var(--suave) 0.35s, z-index 0s 1s;
+  transition: transform 2s var(--sobre-curva) 0.45s, z-index 0s 1.2s;
   backface-visibility: hidden;
+  filter: drop-shadow(0 1px 0 rgba(198, 173, 126, 0.5));
 }
 .escena--abierta .sobre__solapa { transform: rotateX(180deg); z-index: 0; }
 
@@ -504,7 +548,12 @@ main { position: relative; z-index: 2; }
   font-family: var(--f-titulos); font-size: 22px; letter-spacing: 2px;
   fill: rgba(247, 235, 225, 0.85);
 }
-.escena--abierta .sobre__sello { opacity: 0; transform: scale(0.6); pointer-events: none; animation: none; }
+.escena--abierta .sobre__sello {
+  opacity: 0;
+  transform: scale(0.62) rotate(-16deg) translate(-6%, 34%);
+  transition: transform 1.1s var(--suave), opacity 0.95s ease-out;
+  pointer-events: none; animation: none;
+}
 @keyframes invitar { 0%, 100% { scale: 1; } 50% { scale: 1.045; } }
 
 /* — Destinatario (sobre fondo oscuro) — */
@@ -544,6 +593,7 @@ main { position: relative; z-index: 2; }
   50%      { transform: translateY(-5px); }
 }
 .escena--abierta .escena__ayuda { opacity: 0; transition: opacity 0.4s; }
+.escena--abierta .escena__monograma { opacity: 0; transition: opacity 0.7s; }
 
 /* ————— 08. HERO / PORTADA ————— */
 /* Estética sepia de la referencia: foto desenfocada de fondo con los nombres

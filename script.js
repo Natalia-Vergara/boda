@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.dataset.estado = 'abierta';
         invitacionAbierta = true;
         actualizarBotonMusica();
-      }, 2900);
+      }, 5200);
     });
     return;
   }
@@ -315,7 +315,7 @@ function iniciarSobre() {
       if (lenis) lenis.resize();
       ScrollTrigger.refresh();
       reproducirEntradaHero();
-    }, 2900);
+    }, 5200);
   });
 }
 
