@@ -289,10 +289,6 @@
               <span class="boton__texto">Ver mapa</span>
               <span class="boton__brillo" aria-hidden="true"></span>
             </a>
-            <button class="boton boton--vino" data-abrir="modalConfirmar" data-evento="civil" data-cursor="hover">
-              <span class="boton__texto">Confirmar asistencia</span>
-              <span class="boton__brillo" aria-hidden="true"></span>
-            </button>
           </div>
         </article>
       </div>
@@ -629,8 +625,7 @@
         </p>
 
         <button class="boton boton--vino rsvp__whatsapp" id="btnWhatsapp"
-                data-abrir="modalConfirmar" data-evento="casamiento"
-                data-anim="zoom" data-anim-delay="0.25" data-cursor="hover">
+                data-abrir="modalConfirmar" data-anim="zoom" data-anim-delay="0.25" data-cursor="hover">
           <span class="boton__texto">Confirmar aquí</span>
           <span class="boton__brillo" aria-hidden="true"></span>
         </button>
@@ -701,8 +696,6 @@
       <h2 class="modal__titulo" id="tituloConfirmar">¿Venís al casamiento?</h2>
 
       <form class="modal__form" id="formConfirmar" novalidate>
-        <input type="hidden" name="evento" value="Casamiento">
-
         <div class="modal__opciones" role="radiogroup" aria-label="¿Asistís?">
           <label class="opcion">
             <input type="radio" name="asiste" value="Sí, asisto" checked>

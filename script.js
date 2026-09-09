@@ -45,7 +45,7 @@ const CONFIG = {
   formularios: {
     confirmar: {
       url: '',
-      campos: { evento: '', asiste: '', nombre: '', personas: '', nota: '' },
+      campos: { asiste: '', nombre: '', personas: '', nota: '' },
     },
     cancion: {
       url: '',
@@ -475,16 +475,9 @@ function iniciarFotosFinca() {
 let ventanaAbierta = null;
 let botonQueAbrio = null;
 
-function abrirVentana(id, evento) {
+function abrirVentana(id) {
   const ventana = $('#' + id);
   if (!ventana) return;
-
-  // El título y el campo oculto distinguen el civil del casamiento
-  if (id === 'modalConfirmar') {
-    const esCivil = evento === 'civil';
-    $('#tituloConfirmar').textContent = esCivil ? '¿Venís al civil?' : '¿Venís al casamiento?';
-    $('input[name="evento"]', ventana).value = esCivil ? 'Civil' : 'Casamiento';
-  }
 
   // Con link personalizado, el nombre y los lugares vienen puestos
   const invitado = window.__invitado;
@@ -519,7 +512,7 @@ function iniciarVentanas() {
   $$('[data-abrir]').forEach((boton) => {
     boton.addEventListener('click', () => {
       botonQueAbrio = boton;
-      abrirVentana(boton.dataset.abrir, boton.dataset.evento);
+      abrirVentana(boton.dataset.abrir);
     });
   });
 
@@ -537,8 +530,8 @@ function armarMensajeConfirmar(datos) {
   const partes = [
     `Hola! Soy ${datos.nombre}.`,
     datos.asiste.startsWith('Sí')
-      ? `Confirmo mi asistencia al ${datos.evento.toLowerCase()} de Lean & Nati 🎉 (${datos.personas} ${datos.personas === '1' ? 'persona' : 'personas'})`
-      : `Lamentablemente no voy a poder acompañarlos en el ${datos.evento.toLowerCase()} 💔`,
+      ? `Confirmo mi asistencia al casamiento de Lean & Nati 🎉 (${datos.personas} ${datos.personas === '1' ? 'persona' : 'personas'})`
+      : `Lamentablemente no voy a poder acompañarlos 💔`,
   ];
   if (datos.nota) partes.push(`Aclaración: ${datos.nota}`);
   return partes.join(' ');
