@@ -26,6 +26,8 @@
    18. Álbum compartido
    18b. Menú
    18c. Canciones
+   18d. Civil
+   18e. Formularios en ventana
    19. Footer
    20. Accesibilidad y responsive
    ============================================================ */
@@ -1075,6 +1077,156 @@ body[data-estado="abierta"] .hero__scroll.hero__scroll--oculto { opacity: 0; }
   color: var(--dorado);
 }
 .canciones__boton { margin-top: 0.6rem; }
+
+/* ————— 18d. CIVIL ————— */
+.civil { background: var(--papel); }
+.civil__tarjeta {
+  max-width: 520px; margin: 1rem auto 0;
+  background: rgba(255, 255, 255, 0.65);
+  border: var(--borde-fino);
+  border-radius: 5px;
+  box-shadow: var(--sombra-suave);
+  padding: clamp(2.2rem, 5.5vw, 3rem) clamp(1.4rem, 4.5vw, 2.6rem);
+  display: grid; justify-items: center; gap: 1.4rem;
+  position: relative;
+}
+.civil__tarjeta::before {
+  content: "";
+  position: absolute; inset: 8px;
+  border: 1px solid rgba(169, 139, 84, 0.22);
+  border-radius: 3px;
+  pointer-events: none;
+}
+.civil__dato { display: grid; justify-items: center; gap: 0.35rem; }
+.civil__icono { width: 28px; height: 28px; color: var(--bordo); margin-bottom: 0.3rem; }
+.civil__titulo {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: clamp(1.25rem, 3.2vw, 1.6rem);
+  line-height: 1.3; letter-spacing: 0.05em;
+  color: var(--tinta);
+  text-wrap: balance;
+}
+.civil__hora {
+  font-family: var(--f-botones); font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.32em; text-indent: 0.32em; text-transform: uppercase;
+  color: var(--dorado);
+}
+.civil__direccion {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: 1.02rem; color: var(--tinta-suave);
+}
+.civil__divisor {
+  width: 90px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(169, 139, 84, 0.6), transparent);
+}
+.civil__acciones { display: flex; gap: 0.9rem; flex-wrap: wrap; justify-content: center; margin-top: 0.3rem; }
+
+/* ————— 18e. FORMULARIOS EN VENTANA ————— */
+.modal {
+  position: fixed; inset: 0; z-index: 120;
+  display: grid; place-items: center;
+  padding: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.35s var(--suave);
+}
+.modal[hidden] { display: none; }
+.modal--visible { opacity: 1; }
+
+.modal__velo {
+  position: absolute; inset: 0;
+  background: rgba(24, 16, 12, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.modal__caja {
+  position: relative;
+  width: min(100%, 440px);
+  max-height: 88dvh; overflow-y: auto;
+  background: var(--papel);
+  border: 1px solid rgba(169, 139, 84, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.6);
+  padding: clamp(2rem, 6vw, 2.6rem) clamp(1.4rem, 5vw, 2.2rem) clamp(1.8rem, 5vw, 2.2rem);
+  display: grid; justify-items: center; gap: 0.5rem;
+  text-align: center;
+  transform: translateY(18px) scale(0.97);
+  transition: transform 0.45s var(--suave);
+}
+.modal--visible .modal__caja { transform: none; }
+
+.modal__cerrar {
+  position: absolute; top: 0.7rem; right: 0.7rem;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: var(--bordo);
+  transition: background-color 0.3s;
+}
+.modal__cerrar svg { width: 20px; height: 20px; }
+.modal__cerrar:hover { background: rgba(97, 21, 42, 0.08); }
+
+.modal__icono { width: 44px; height: 44px; color: var(--dorado); }
+.modal__titulo {
+  font-family: var(--f-script);
+  font-size: clamp(1.8rem, 5.5vw, 2.3rem);
+  line-height: 1.25;
+  color: var(--bordo);
+  margin-bottom: 0.6rem;
+}
+
+.modal__form { width: 100%; display: grid; gap: 1.1rem; justify-items: stretch; }
+
+/* Sí / No */
+.modal__opciones { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; }
+.opcion input { position: absolute; opacity: 0; width: 0; height: 0; }
+.opcion__pastilla {
+  display: inline-block; cursor: pointer;
+  font-family: var(--f-botones); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--tinta-suave);
+  border: 1px solid rgba(169, 139, 84, 0.5);
+  border-radius: 100px; padding: 0.6rem 1.3rem;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.opcion input:checked + .opcion__pastilla {
+  background: var(--bordo); border-color: var(--bordo);
+  color: var(--marfil);
+}
+.opcion input:focus-visible + .opcion__pastilla { outline: 2px solid var(--dorado); outline-offset: 2px; }
+
+/* Campos */
+.campo { display: grid; gap: 0.35rem; text-align: left; }
+.campo__etiqueta {
+  font-family: var(--f-botones); font-size: 0.62rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--tinta-tenue);
+}
+.campo__etiqueta em { font-style: normal; text-transform: none; letter-spacing: 0.04em; }
+.campo__entrada {
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--tinta);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(169, 139, 84, 0.45);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.campo__entrada::placeholder { color: rgba(61, 46, 42, 0.4); font-size: 0.95rem; }
+.campo__entrada:focus {
+  border-color: var(--dorado);
+  box-shadow: 0 0 0 3px rgba(169, 139, 84, 0.18);
+}
+
+.modal__enviar { justify-self: center; margin-top: 0.3rem; }
+.modal__enviar[disabled] { opacity: 0.6; pointer-events: none; }
+.modal__estado {
+  text-align: center; min-height: 1.4em;
+  font-family: var(--f-titulos); font-weight: 500;
+  font-size: 0.95rem; color: var(--bordo);
+}
 
 /* ————— 19. FOOTER ————— */
 /* La foto va en assets/images/fondos/cierre.jpg (con velo bordó oscuro). */

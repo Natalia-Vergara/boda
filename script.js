@@ -14,7 +14,7 @@
    09. Animaciones de scroll (fade, zoom, split, dibujo, parallax)
    10. Cuenta regresiva
    10b. Fotos del lugar (opcionales)
-   10c. Sugerir canciones
+   10c. Formularios en ventana (confirmación y canciones)
    11. Álbum compartido (link configurable)
    12. Copiar los datos de la cuenta
    12b. Indicador de scroll
@@ -32,12 +32,26 @@ const CONFIG = {
   // Reemplazar por la URL real, p. ej.: 'https://photos.app.goo.gl/XXXXXXXX'
   urlAlbum: 'https://photos.app.goo.gl/CAMBIAR-POR-EL-LINK-DEL-ALBUM',
 
-  // Formulario para sugerir canciones (por ejemplo un Google Forms).
-  // Si se deja vacío, el botón abre WhatsApp con el mensaje ya escrito.
-  urlCanciones: '',
-
-  // WhatsApp de los novios, usado por el botón de canciones
+  // WhatsApp de los novios
   whatsapp: '542215864142',
+
+  /* Formularios en ventana.
+     Mientras 'url' esté vacía, al enviar se abre WhatsApp con el mensaje
+     ya escrito: funciona desde el primer día sin configurar nada.
+     Para que las respuestas caigan solas en una planilla, crear un
+     Google Forms y completar aquí su dirección de envío (la que termina
+     en /formResponse) y el identificador de cada campo (entry.123456).
+     El README explica cómo obtenerlos. */
+  formularios: {
+    confirmar: {
+      url: '',
+      campos: { evento: '', asiste: '', nombre: '', personas: '', nota: '' },
+    },
+    cancion: {
+      url: '',
+      campos: { nombre: '', cancion: '', link: '' },
+    },
+  },
 
   // Clave usada para recordar el estado de la música entre visitas
   claveMusica: 'nyl-musica',
@@ -75,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarMusica();
     iniciarCuentaRegresiva();
     iniciarFotosFinca();
-    iniciarCanciones();
+    iniciarVentanas();
     iniciarAlbum();
     iniciarCopiarAlias();
     $('#btnAbrir').addEventListener('click', () => {
@@ -103,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarAnimacionesScroll();
   iniciarCuentaRegresiva();
   iniciarFotosFinca();
-  iniciarCanciones();
+  iniciarVentanas();
   iniciarAlbum();
   iniciarCopiarAlias();
   iniciarIndicadorScroll();
@@ -457,25 +471,130 @@ function iniciarFotosFinca() {
   });
 }
 
-/* ————— 10c. SUGERIR CANCIONES ————— */
-/**
- * Si hay un formulario configurado (CONFIG.urlCanciones), el botón lleva
- * ahí. Si no, abre WhatsApp con el mensaje empezado, que funciona desde
- * el primer día sin necesidad de crear nada.
- */
-function iniciarCanciones() {
-  const boton = $('#btnCanciones');
-  if (!boton) return;
+/* ————— 10c. FORMULARIOS EN VENTANA ————— */
+let ventanaAbierta = null;
+let botonQueAbrio = null;
 
-  if (CONFIG.urlCanciones) {
-    boton.href = CONFIG.urlCanciones;
-    return;
+function abrirVentana(id, evento) {
+  const ventana = $('#' + id);
+  if (!ventana) return;
+
+  // El título y el campo oculto distinguen el civil del casamiento
+  if (id === 'modalConfirmar') {
+    const esCivil = evento === 'civil';
+    $('#tituloConfirmar').textContent = esCivil ? '¿Venís al civil?' : '¿Venís al casamiento?';
+    $('input[name="evento"]', ventana).value = esCivil ? 'Civil' : 'Casamiento';
   }
 
+  // Con link personalizado, el nombre y los lugares vienen puestos
   const invitado = window.__invitado;
-  const quien = invitado ? `Soy ${invitado.nombre}. ` : '';
-  const mensaje = `Hola! ${quien}Esta canción no puede faltar en la fiesta de Lean & Nati 🎶: `;
-  boton.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensaje)}`;
+  if (invitado) {
+    const campoNombre = $('input[name="nombre"]', ventana);
+    if (campoNombre && !campoNombre.value) campoNombre.value = invitado.nombre;
+    const campoPersonas = $('input[name="personas"]', ventana);
+    if (campoPersonas) campoPersonas.value = Number(invitado.pases) || 1;
+  }
+
+  ventana.hidden = false;
+  requestAnimationFrame(() => ventana.classList.add('modal--visible'));
+  ventanaAbierta = ventana;
+  if (lenis) lenis.stop();
+
+  // El foco entra en la ventana, para quien navega con teclado
+  const primero = $('input:not([type="hidden"]), button', ventana);
+  if (primero) setTimeout(() => primero.focus({ preventScroll: true }), 120);
+}
+
+function cerrarVentana() {
+  if (!ventanaAbierta) return;
+  const ventana = ventanaAbierta;
+  ventana.classList.remove('modal--visible');
+  setTimeout(() => { ventana.hidden = true; }, 350);
+  ventanaAbierta = null;
+  if (lenis) lenis.start();
+  if (botonQueAbrio) botonQueAbrio.focus({ preventScroll: true });
+}
+
+function iniciarVentanas() {
+  $$('[data-abrir]').forEach((boton) => {
+    boton.addEventListener('click', () => {
+      botonQueAbrio = boton;
+      abrirVentana(boton.dataset.abrir, boton.dataset.evento);
+    });
+  });
+
+  $$('[data-cerrar]').forEach((el) => el.addEventListener('click', cerrarVentana));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && ventanaAbierta) cerrarVentana();
+  });
+
+  conectarFormulario($('#formConfirmar'), 'confirmar', armarMensajeConfirmar);
+  conectarFormulario($('#formCancion'), 'cancion', armarMensajeCancion);
+}
+
+/** Texto que se manda por WhatsApp mientras no haya planilla conectada */
+function armarMensajeConfirmar(datos) {
+  const partes = [
+    `Hola! Soy ${datos.nombre}.`,
+    datos.asiste.startsWith('Sí')
+      ? `Confirmo mi asistencia al ${datos.evento.toLowerCase()} de Lean & Nati 🎉 (${datos.personas} ${datos.personas === '1' ? 'persona' : 'personas'})`
+      : `Lamentablemente no voy a poder acompañarlos en el ${datos.evento.toLowerCase()} 💔`,
+  ];
+  if (datos.nota) partes.push(`Aclaración: ${datos.nota}`);
+  return partes.join(' ');
+}
+
+function armarMensajeCancion(datos) {
+  let texto = `Hola! Soy ${datos.nombre}. Esta canción no puede faltar en la fiesta de Lean & Nati 🎶: ${datos.cancion}`;
+  if (datos.link) texto += ` — ${datos.link}`;
+  return texto;
+}
+
+function conectarFormulario(form, clave, armarMensaje) {
+  if (!form) return;
+  const estado = $('.modal__estado', form);
+  const boton = $('.modal__enviar', form);
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      estado.textContent = 'Completá los campos obligatorios.';
+      form.reportValidity();
+      return;
+    }
+
+    const datos = Object.fromEntries(new FormData(form));
+    const config = CONFIG.formularios[clave];
+
+    // Sin planilla conectada: se abre WhatsApp con el mensaje escrito
+    if (!config.url) {
+      const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(armarMensaje(datos))}`;
+      window.open(url, '_blank', 'noopener');
+      estado.textContent = '¡Gracias! Te llevamos a WhatsApp para enviarlo.';
+      setTimeout(cerrarVentana, 1800);
+      return;
+    }
+
+    // Con planilla: la respuesta se guarda sola
+    boton.disabled = true;
+    estado.textContent = 'Enviando…';
+    try {
+      const cuerpo = new FormData();
+      Object.entries(config.campos).forEach(([campo, id]) => {
+        if (id && datos[campo] !== undefined) cuerpo.append(id, datos[campo]);
+      });
+      // Google Forms no devuelve CORS: no-cors envía igual, sin leer respuesta
+      await fetch(config.url, { method: 'POST', mode: 'no-cors', body: cuerpo });
+      estado.textContent = '¡Gracias! Recibimos tu respuesta ❤️';
+      form.reset();
+      setTimeout(cerrarVentana, 2200);
+    } catch {
+      estado.textContent = 'No pudimos enviarlo. Probá de nuevo en un momento.';
+    } finally {
+      boton.disabled = false;
+    }
+  });
 }
 
 /* ————— 11. ÁLBUM COMPARTIDO ————— */
