@@ -26,7 +26,7 @@ sin código ve la invitación genérica («Estás cordialmente invitado»).
 0. **Sobre** — a pantalla completa, con textura de papel y sello de lacre; muestra el nombre del invitado y se abre al tocar el sello (la carta asoma y aparece la portada).
 1. **Portada** — animación de entrada (L & N → Lean & Nati), promesa, «Nos casamos» y cuenta regresiva en tiempo real hasta el 27/11/2026.
 2. **Con inmensa alegría** — bienvenida.
-3. **Ceremonia & Celebración** — dirección completa, horarios (18:15 llegada / 18:30 puntual), botones **Ver mapa** (Google Maps) y **Fotos del lugar** (Instagram `@fincalajosefinaeventos`), más preview visual de la finca.
+3. **Ceremonia & Celebración** — dirección completa, horarios (18:15 llegada / 18:30 puntual), botones **Ver mapa** (Google Maps) y **Fotos del lugar** (Instagram `@fincalajosefinaeventos`), más cinco fotos reales de la finca.
 4. **Dress code** — Formal, con los 5 colores a evitar (blanco, crema, beige, nude y bordó).
 5. **Regalos** — datos de la cuenta (Naranja X) con botones para copiar el alias y el CBU (Clipboard API + fallback) y aviso de confirmación.
 6. **Celebración sólo para adultos**.
@@ -48,7 +48,7 @@ boda/
    ├─ fonts/             → Tipografías auto-hospedadas (woff2)
    ├─ music/             → cancion.mp3 (agregar aquí la canción elegida)
    ├─ images/            → og-cover.jpg (vista previa al compartir)
-   │   └─ finca/         → finca-01 … finca-03 (fotos del lugar)
+   │   └─ finca/         → finca-01 … finca-05 (fotos del lugar)
    ├─ vendor/            → gsap, ScrollTrigger, lenis (auto-hospedados)
    └─ icons/             → favicon.svg
 ```
@@ -168,7 +168,7 @@ python3 -m http.server 8080
 | **Invitados y pases** | `invitados.js` (un renglón por invitado/familia) |
 | **Fotos de fondo** (sobre, portada, versículo, cierre) | Guardarlas en `assets/images/fondos/` con los nombres que indica el `LEEME.txt` de esa carpeta |
 | **Link del álbum compartido** | `CONFIG.urlAlbum` en `script.js` (pegar el link de Google Fotos) |
-| Fotos de la finca | `assets/images/finca/finca-01.jpg` … `finca-03.jpg` (proporción 4:3). Si falta alguna, esa foto se oculta sola; si faltan las tres, se oculta el bloque entero |
+| Fotos de la finca | `assets/images/finca/finca-01.jpg` … `finca-05.jpg` (proporción 4:3). Si falta alguna, esa foto se oculta sola; si faltan todas, se oculta el bloque entero |
 | Música | Colocar el MP3 en `assets/music/cancion.mp3` |
 | Imagen del hero | Reemplazar `assets/images/hero.svg` por una foto (actualizar la ruta en `index.html`) |
 | Fecha de la cuenta regresiva | `CONFIG.fechaBoda` en `script.js` |

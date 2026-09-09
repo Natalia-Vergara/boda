@@ -614,6 +614,9 @@ main { position: relative; z-index: 2; }
   margin: 1.8rem auto 0;
   color: rgba(247, 243, 238, 0.88);
 }
+/* Cada frase en su propio renglón, sin cortar palabras al azar */
+.hero__promesa span { display: block; text-wrap: balance; }
+.hero__promesa span + span { margin-top: 0.5rem; }
 
 .hero__fecha { margin-top: 2.2rem; display: grid; gap: 0.55rem; justify-items: center; }
 .hero__nos-casamos {
@@ -762,12 +765,15 @@ body[data-estado="abierta"] .hero__scroll.hero__scroll--oculto { opacity: 0; }
 .ceremonia__acciones { display: flex; gap: 0.9rem; flex-wrap: wrap; justify-content: center; }
 
 /* Preview visual de la finca */
+/* Flex y no grilla: si la última fila queda incompleta —o si falta alguna
+   foto— las que quedan se centran solas en vez de dejar un hueco. */
 .ceremonia__fotos {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: flex; flex-wrap: wrap; justify-content: center;
   gap: 1.1rem; max-width: 860px;
   margin: 2.6rem auto 0;
 }
 .ceremonia__foto {
+  flex: 0 1 calc((100% - 2.2rem) / 3);
   margin: 0; border-radius: 5px; overflow: hidden;
   border: var(--borde-fino);
   box-shadow: var(--sombra-suave);
@@ -1319,6 +1325,7 @@ body[data-estado="abierta"] .hero__scroll.hero__scroll--oculto { opacity: 0; }
   .cuenta__reloj { flex-wrap: wrap; row-gap: 1.4rem; }
   .cuenta__bloque { min-width: 38%; }
   .arriba { bottom: 5.4rem; right: 1.45rem; width: 42px; height: 42px; }
-  .ceremonia__fotos { grid-template-columns: 1fr; max-width: 420px; }
+  .ceremonia__fotos { max-width: 420px; }
+  .ceremonia__foto { flex-basis: 100%; }
   .ceremonia__acciones { flex-direction: column; align-items: stretch; width: 100%; }
 }
