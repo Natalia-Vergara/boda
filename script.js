@@ -36,7 +36,7 @@ const CONFIG = {
   whatsapp: '542215864142',
 
   /* Base de datos (Supabase).
-     Mientras 'url' esté vacía, los formularios abren WhatsApp con el
+     Mientras falte alguno de los dos datos, los formularios abren WhatsApp con el
      mensaje ya escrito, así la invitación funciona igual sin configurar
      nada. Al completar estos dos datos, las confirmaciones y las
      canciones se guardan en la base. Ver README.md, sección «Base de datos».
@@ -45,8 +45,8 @@ const CONFIG = {
      protege los datos son las políticas de la base, que sólo permiten
      insertar filas, nunca leerlas ni borrarlas. */
   baseDeDatos: {
-    url: '',    // https://xxxxxxxx.supabase.co
-    clave: '',  // clave anon (public)
+    url: 'https://mjvhfvcpkrzpufrpklrv.supabase.co',
+    clave: '',  // clave anon (public) — Settings → API Keys
   },
 
   // Clave usada para recordar el estado de la música entre visitas
@@ -649,7 +649,7 @@ function conectarFormulario(form, tabla, armarMensaje) {
     const datos = Object.fromEntries(new FormData(form));
 
     // Sin base conectada: se abre WhatsApp con el mensaje escrito
-    if (!CONFIG.baseDeDatos.url) {
+    if (!CONFIG.baseDeDatos.url || !CONFIG.baseDeDatos.clave) {
       const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(armarMensaje(datos))}`;
       window.open(url, '_blank', 'noopener');
       estado.textContent = '¡Gracias! Te llevamos a WhatsApp para enviarlo.';

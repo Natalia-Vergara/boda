@@ -90,12 +90,12 @@ Para conectarla, completar en `script.js` → `CONFIG.baseDeDatos`:
 
 ```js
 baseDeDatos: {
-  url:   'https://xxxxxxxx.supabase.co',
+  url:   'https://mjvhfvcpkrzpufrpklrv.supabase.co',
   clave: 'eyJhbGciOi…',   // clave anon (public)
 },
 ```
 
-Mientras esos campos estén vacíos, los formularios abren WhatsApp con el
+Mientras falte alguno de los dos, los formularios abren WhatsApp con el
 mensaje ya escrito, así la invitación funciona igual sin base conectada.
 
 ### Las tablas
